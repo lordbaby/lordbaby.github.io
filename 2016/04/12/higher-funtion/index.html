@@ -1,0 +1,857 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="AOP,柯理化,函数节流,分时函数,惰性函数," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="能成为高阶函数至少满足以下两点之一
+
+函数可以作为参数被传递
+函数可以作为返回值">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高阶函数及相关应用">
+<meta property="og:url" content="http://lordbaby.github.io/2016/04/12/higher-funtion/index.html">
+<meta property="og:site_name" content="海亮de部落格">
+<meta property="og:description" content="能成为高阶函数至少满足以下两点之一
+
+函数可以作为参数被传递
+函数可以作为返回值">
+<meta property="og:updated_time" content="2016-04-27T08:58:57.910Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高阶函数及相关应用">
+<meta name="twitter:description" content="能成为高阶函数至少满足以下两点之一
+
+函数可以作为参数被传递
+函数可以作为返回值">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 4796736,
+      author: 'admin'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://lordbaby.github.io/2016/04/12/higher-funtion/"/>
+
+  <title> 高阶函数及相关应用 | 海亮de部落格 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?879e38c58af922c23ad21390d3d53618";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">海亮de部落格</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                高阶函数及相关应用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-12T15:29:39+08:00" content="2016-04-12">
+              2016-04-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/12/higher-funtion/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/12/higher-funtion/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/04/12/higher-funtion/" class="leancloud_visitors" data-flag-title="高阶函数及相关应用">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>能成为高阶函数至少满足以下两点之一</p>
+<ul>
+<li>函数可以作为参数被传递</li>
+<li>函数可以作为返回值</li>
+</ul>
+<a id="more"></a>
+<h2 id="函数作为参数传递"><a href="#函数作为参数传递" class="headerlink" title="函数作为参数传递"></a>函数作为参数传递</h2><p>把函数作为参数传递，这代表可以抽象出一部分容易变化的业务逻辑，形成单独的函数来作为参数传递，这样一来可以分开业务逻辑中变化与不变化的部分。</p>
+<p>最常见的就是回调函数，比如ajax异步请求返回之后要做的一些事情，可以封装的回调函数中，等待请求完成之后执行callback</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> getUserInfo=<span class="function"><span class="keyword">function</span>(<span class="params">userId,callback</span>)</span>&#123;</div><div class="line">    $.ajax(&#123;</div><div class="line">        url:<span class="string">'http://xxx.com/getUserInfo?'</span>+userId,</div><div class="line">        success:<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">typeof</span> callback==<span class="string">'function'</span>)&#123;</div><div class="line">                callback(data);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">getUserInfo(<span class="number">12345</span>,funciton(data)&#123;</div><div class="line">    <span class="built_in">console</span>.log(data.userName);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>除了异步请求，当一个函数不适合执行一些请求时，也可以把这些请求封装成一个函数，作为参数传递。<br>在页面上创建100个div</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> appendDiv=<span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;i++)&#123;</div><div class="line">        <span class="keyword">var</span> div=<span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</div><div class="line">        div.innerHTML=i;</div><div class="line">        <span class="built_in">document</span>.body.appendChild(div);</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">typeof</span> callback===<span class="string">'function'</span>)&#123;</div><div class="line">           callback(div);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>想让100个div隐藏，则创建一个隐藏函数,或者其他一些操作</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">append(<span class="function"><span class="keyword">function</span>(<span class="params">node</span>)</span>&#123;</div><div class="line">    node.style.display=<span class="string">'none'</span>;</div><div class="line"></div><div class="line">    <span class="comment">//todo</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>总结一点就是抽离出业务逻辑中的不变部分与可变部分，可变部分封装成单独的函数作为参数来传递</p>
+<h2 id="函数作为返回值"><a href="#函数作为返回值" class="headerlink" title="函数作为返回值"></a>函数作为返回值</h2><p>函数作为返回值的场景也许在应用中会更多</p>
+<h3 id="判断数据的类型"><a href="#判断数据的类型" class="headerlink" title="判断数据的类型"></a>判断数据的类型</h3><p>通常判断数据类型调用<code>Object.prototype.toString.call(obj)</code>比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> isArray=<span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(obj)===<span class="string">'[object Array]'</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> isNumber=<span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(obj)===<span class="string">'[object Number]'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>为了避免重复大部分代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> isType=<span class="function"><span class="keyword">function</span>(<span class="params">type</span>)</span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(obj)===<span class="string">'[object '</span>+type+<span class="string">']'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> isArray=isType(<span class="string">'Array'</span>);</div><div class="line">isArray([<span class="number">1</span>,<span class="number">23</span>,<span class="number">4</span>]) <span class="comment">//true</span></div></pre></td></tr></table></figure>
+<h2 id="高阶函数的应用"><a href="#高阶函数的应用" class="headerlink" title="高阶函数的应用"></a>高阶函数的应用</h2><h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>单例模式中函数即作为参数，又作为返回值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> getSingle=<span class="function"><span class="keyword">function</span>(<span class="params">fn</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> ret;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> ret||(ret=fn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>));</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> getScript=getSingle(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="keyword">var</span> script1=getScript();</div><div class="line"><span class="keyword">var</span> script2=getScript();</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(script1===script2) <span class="comment">//true</span></div></pre></td></tr></table></figure>
+<h3 id="实现AOP"><a href="#实现AOP" class="headerlink" title="实现AOP"></a>实现AOP</h3><p>AOP即面向切面编程，主要独立于核心业务逻辑，通常是无关功能，包括日志统计、安全控制、异常处理。把这些功能抽离出来在通过“动态组织”的方式掺入到业务逻辑中，这样保持业务逻辑干净和高内聚性，其次是抽离出来的功能实现高复用。</p>
+<p>通过扩展Function.prototype来做到实现AOP。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//原函数执行前</span></div><div class="line"><span class="built_in">Function</span>.prototype.before=<span class="function"><span class="keyword">function</span>(<span class="params">beforeFn</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> _self=<span class="keyword">this</span>;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        beforeFn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</div><div class="line">        <span class="keyword">return</span> _self.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//原函数执行后</span></div><div class="line"><span class="built_in">Function</span>.prototype.after=<span class="function"><span class="keyword">function</span>(<span class="params">afterFn</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> _self=<span class="keyword">this</span>;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> ret=_self.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</div><div class="line">        afterFn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</div><div class="line">        <span class="keyword">return</span> ret;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//比如一个用户登录，登录前先进行安全验证，登录后再打印登录日志</span></div><div class="line"></div><div class="line"><span class="comment">//登录模块</span></div><div class="line"><span class="keyword">var</span> login=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'用户登录中ing....'</span>)</div><div class="line">&#125;</div><div class="line"><span class="comment">//安全验证模块</span></div><div class="line"><span class="keyword">var</span> safety=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'安全验证完毕'</span>)</div><div class="line">&#125;</div><div class="line"><span class="comment">//日志统计模块</span></div><div class="line"><span class="keyword">var</span> log=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'事件：登录，用户：xxx，时间：2016年4月12日15:09:10'</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">login= login.before(safety).after(log);</div><div class="line">login();</div><div class="line"><span class="comment">/*</span></div><div class="line">输出:</div><div class="line">安全验证完毕</div><div class="line">用户登录中ing....</div><div class="line">事件：登录，用户：xxx，时间：2016年4月12日15:09:10</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>其实在设计模式中这叫责任链模式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//利用JavaScript函数式的特性，可以很方便的实现责任链模式</span></div><div class="line"></div><div class="line"><span class="built_in">Function</span>.prototype.after=<span class="function"><span class="keyword">function</span>(<span class="params">fn</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> self=<span class="keyword">this</span>;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> ret=self.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</div><div class="line">        <span class="keyword">if</span>(ret===<span class="string">'nextSuccessor'</span>)&#123;</div><div class="line">            <span class="keyword">return</span> fn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="柯理化"><a href="#柯理化" class="headerlink" title="柯理化"></a>柯理化</h3><p>又名currying，分部求值，一个currying的函数首先接受一些参数，接受后不会立即进行求值，而是返回另一个函数，传入的参数在闭包做作为私有静态变量被保存下来，待真正求值时，一次性求出。</p>
+<p>比如我们统计每月的消费</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> monthlyCost=<span class="number">0</span>;</div><div class="line"><span class="keyword">var</span> cost=<span class="function"><span class="keyword">function</span>(<span class="params">money</span>)</span>&#123;</div><div class="line">    monthlyCost+=money;</div><div class="line">&#125;</div><div class="line">cost(<span class="number">100</span>);</div><div class="line">cost(<span class="number">200</span>);</div><div class="line">cost(<span class="number">300</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(monthlyCost)</div></pre></td></tr></table></figure>
+<p>其实我关心的是月底该月总共消费多少，到月底统一计算，就像我们关心的工资，上一天班不是说当天就给你结算，而是到月底一起算。这就是说的月薪，有些牛x的直接来年薪。</p>
+<p>思路：把每天的消费先存放到闭包中的私有静态变量中，到月底一起算。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> cost=(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> costs=[];</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">if</span>(<span class="built_in">arguments</span>.length===<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">var</span> money=<span class="number">0</span>;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;costs.length;i++)&#123;</div><div class="line">                money+=costs[i]</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> money;</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            [].push.apply(costs,<span class="built_in">arguments</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line">cost(<span class="number">100</span>) <span class="comment">//没求值</span></div><div class="line">cost(<span class="number">200</span>) <span class="comment">//没求值</span></div><div class="line">cost(<span class="number">300</span>) <span class="comment">//没求值</span></div><div class="line">cost(); <span class="comment">//600</span></div></pre></td></tr></table></figure>
+<p>函数柯理化，当然将要被柯理化的函数要作为参数，通过一个函数将其柯理化</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> currying=<span class="function"><span class="keyword">function</span>(<span class="params">fn</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> costs=[];</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">if</span>(<span class="built_in">arguments</span>.length===<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> fn.apply(<span class="keyword">this</span>,costs)</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            [].push.apply(costs,<span class="built_in">arguments</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> cost=(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> money=<span class="number">0</span>;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="built_in">arguments</span>.length;i++)&#123;</div><div class="line">            money+=<span class="built_in">arguments</span>[i];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> money;</div><div class="line">    &#125;</div><div class="line">&#125;)()</div><div class="line"></div><div class="line"><span class="keyword">var</span> cost=currying(cost)</div><div class="line"></div><div class="line">cost(<span class="number">100</span>)</div><div class="line">cost(<span class="number">200</span>)</div><div class="line">cost(<span class="number">300</span>)</div><div class="line"></div><div class="line">cost(); <span class="comment">//600</span></div></pre></td></tr></table></figure>
+<p>先不求值，最后统一计算。</p>
+<h3 id="函数节流"><a href="#函数节流" class="headerlink" title="函数节流"></a>函数节流</h3><p>在有些场景中，函数有可能被频繁的调用，而造成性能问题，比如<code>window.onresize</code>,<code>mousemove</code>等事件。</p>
+<p>函数节流的原理：比我<code>window.onresize</code>事件，改变一次窗口大小，打印窗口大小1秒钟就执行了10次，实际上只打印1-2次就够了，这需要按时间段来忽略一些事件请求，比如在500ms内打印一次，很显然可以借助<code>setTimeout</code>函数.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//throttle的意思是动词掐死，意思是让其慢一点执行</span></div><div class="line"><span class="comment">/**</span></div><div class="line"> * [throttle description]</div><div class="line"> * @param  &#123;Function&#125; fn       被延迟执行的函数</div><div class="line"> * @param  &#123;[type]&#125;   interval 延迟执行的时间</div><div class="line"> * @return &#123;[type]&#125;            [description]</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> throttle=<span class="function"><span class="keyword">function</span>(<span class="params">fn,interval</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> _self=fn,</div><div class="line">        timer,</div><div class="line">        firstTime=<span class="literal">true</span>;<span class="comment">//是否是第一次调用</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> args=<span class="built_in">arguments</span>,</div><div class="line">            _me=<span class="keyword">this</span>;</div><div class="line">        <span class="keyword">if</span>(firstTime)&#123;</div><div class="line">            _self.apply(<span class="keyword">this</span>,args);</div><div class="line">            <span class="keyword">return</span> fistTime=<span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(timer)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">        timer=setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            clearTimeout(timer);</div><div class="line">            timer=<span class="literal">null</span>;</div><div class="line">            _self.apply(_me,args);</div><div class="line">        &#125;,interval||<span class="number">500</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">window</span>.onresize=throttle(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>); <span class="comment">//窗口变动一次执行2次函数</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="分时函数"><a href="#分时函数" class="headerlink" title="分时函数"></a>分时函数</h3><p>比如在短时间内往页面中大量添加DOM节点，会让浏览器吃不消，会发生卡顿甚至假死，解决办法之一，节点分批创建，比如1秒创建1000个，改为200ms创建8个。、</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * [timeChunk description]</div><div class="line"> * @param  &#123;[type]&#125;   arr   [创建节点用到的数据]</div><div class="line"> * @param  &#123;Function&#125; fn    [创建节点的逻辑函数]</div><div class="line"> * @param  &#123;[type]&#125;   count [每一批创建的节点数量]</div><div class="line"> * @return &#123;[type]&#125;         [description]</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> timeChunk=<span class="function"><span class="keyword">function</span>(<span class="params">arr,fn,count</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> obj,</div><div class="line">        t;</div><div class="line">    <span class="keyword">var</span> len=arr.length;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> start=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="built_in">Math</span>.min(count||<span class="number">1</span>,arr.length);i++)&#123;</div><div class="line">            obj=arr.shift();</div><div class="line">            fn(obj);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        t=setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">if</span>(arr.length==<span class="number">0</span>)&#123;</div><div class="line">                <span class="keyword">return</span> clearInterval(t)</div><div class="line">            &#125;</div><div class="line">            start();</div><div class="line">        &#125;,<span class="number">200</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> arr=[];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">1000</span>;i++)&#123;</div><div class="line">    arr.push(i)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> renderDiv=timeChunk(arr,<span class="function"><span class="keyword">function</span>(<span class="params">n</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> div=<span class="built_in">document</span>.createElement(<span class="string">'div'</span>)</div><div class="line">    div.innerHTML=n;</div><div class="line">    <span class="built_in">document</span>.body.appendChild(div);</div><div class="line">&#125;,<span class="number">8</span>)</div><div class="line"></div><div class="line">renderDiv();</div></pre></td></tr></table></figure>
+<h3 id="惰性加载函数"><a href="#惰性加载函数" class="headerlink" title="惰性加载函数"></a>惰性加载函数</h3><p>在各式各样的浏览器中，一些嗅探工作总是不可避免，比如在一个各个浏览器中都能够通用的事件绑定函数addEvent。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//惰性载入函数实现方案</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * [addEvent description]</div><div class="line"> * @param &#123;[type]&#125; elem    [元素]</div><div class="line"> * @param &#123;[type]&#125; type    [事件类型]</div><div class="line"> * @param &#123;[type]&#125; handler [处理事件]</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> addEvent=<span class="function"><span class="keyword">function</span>(<span class="params">elem,type,handler</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(<span class="built_in">window</span>.addEventListener)&#123;</div><div class="line">        addEvent=<span class="function"><span class="keyword">function</span>(<span class="params">elem,type,handler</span>)</span>&#123;</div><div class="line">            elem.addEventListener(type,handler,<span class="literal">false</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">window</span>.attachEvent)&#123;</div><div class="line">        addEvent=<span class="function"><span class="keyword">function</span>(<span class="params">elem,type,handler</span>)</span>&#123;</div><div class="line">            elem.attachEvent(<span class="string">'on'</span>+type,handler)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    addEvent(elem,type,handler);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>接下来的会系统学习一下JavaScript设计模式，基本都是通过高阶函数和闭包来实现的。但其实更关注在哪种场景适合哪种模式。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AOP/" rel="tag">#AOP</a>
+          
+            <a href="/tags/柯理化/" rel="tag">#柯理化</a>
+          
+            <a href="/tags/函数节流/" rel="tag">#函数节流</a>
+          
+            <a href="/tags/分时函数/" rel="tag">#分时函数</a>
+          
+            <a href="/tags/惰性函数/" rel="tag">#惰性函数</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/07/this-call-apply/" rel="next" title="this，call和apply">
+                <i class="fa fa-chevron-left"></i> this，call和apply
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/13/singleton-pattern/" rel="prev" title="通用的惰性单例">
+                通用的惰性单例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/04/12/higher-funtion/"
+     data-title="高阶函数及相关应用"
+     data-content=""
+     data-url="http://lordbaby.github.io/2016/04/12/higher-funtion/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/12/higher-funtion/"
+           data-title="高阶函数及相关应用" data-url="http://lordbaby.github.io/2016/04/12/higher-funtion/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/gk5.jpg"
+               alt="HaiLiang" />
+          <p class="site-author-name" itemprop="name">HaiLiang</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lordbaby" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1988hailiang" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liulj88" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数作为参数传递"><span class="nav-number">1.</span> <span class="nav-text">函数作为参数传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数作为返回值"><span class="nav-number">2.</span> <span class="nav-text">函数作为返回值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#判断数据的类型"><span class="nav-number">2.1.</span> <span class="nav-text">判断数据的类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高阶函数的应用"><span class="nav-number">3.</span> <span class="nav-text">高阶函数的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单例模式"><span class="nav-number">3.1.</span> <span class="nav-text">单例模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现AOP"><span class="nav-number">3.2.</span> <span class="nav-text">实现AOP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#柯理化"><span class="nav-number">3.3.</span> <span class="nav-text">柯理化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数节流"><span class="nav-number">3.4.</span> <span class="nav-text">函数节流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分时函数"><span class="nav-number">3.5.</span> <span class="nav-text">分时函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#惰性加载函数"><span class="nav-number">3.6.</span> <span class="nav-text">惰性加载函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HaiLiang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yinyf"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("E8d04Yz1Ki4athjGNkorACwa-gzGzoHsz", "kqkvqyQhDeH2C3gC2FRXeMeD");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
