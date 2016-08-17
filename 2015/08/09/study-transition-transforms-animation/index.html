@@ -1,0 +1,744 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="transition,animation,transform," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="transition, transform, animation 按字面意义可以理解为过渡，变换，动画。3个与动画相关的属性。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS3中的transition，transform，animation">
+<meta property="og:url" content="http://lordbaby.github.io/2015/08/09/study-transition-transforms-animation/index.html">
+<meta property="og:site_name" content="海亮de部落格">
+<meta property="og:description" content="transition, transform, animation 按字面意义可以理解为过渡，变换，动画。3个与动画相关的属性。">
+<meta property="og:updated_time" content="2016-08-17T11:21:43.200Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS3中的transition，transform，animation">
+<meta name="twitter:description" content="transition, transform, animation 按字面意义可以理解为过渡，变换，动画。3个与动画相关的属性。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 4796736,
+      author: 'admin'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://lordbaby.github.io/2015/08/09/study-transition-transforms-animation/"/>
+
+  <title> CSS3中的transition，transform，animation | 海亮de部落格 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?879e38c58af922c23ad21390d3d53618";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">海亮de部落格</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSS3中的transition，transform，animation
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-08-09T17:39:40+08:00" content="2015-08-09">
+              2015-08-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/09/study-transition-transforms-animation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/09/study-transition-transforms-animation/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><code>transition</code>, <code>transform</code>, <code>animation</code> 按字面意义可以理解为过渡，变换，动画。3个与动画相关的属性。</p>
+<a id="more"></a>
+<h1 id="transition"><a href="#transition" class="headerlink" title="transition"></a>transition</h1><p>作用是平滑的改变css的属性值，无论是点击事件，焦点事件还是鼠标hover，只要值改变了，就是平滑的。就是动画，实用价值挺高，</p>
+<p>transition有下面具体属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">transition-property :* /*指定过渡的性质，比如transition-property:backgrond 就是指backgound参与这个过渡*/</div><div class="line">transition-duration:*/*指定这个过渡的持续时间*/</div><div class="line">transition-delay:* /*延迟过渡时间*/</div><div class="line">transition-timing-function:* /*指定过渡类型，有ease | linear | ease-in | ease-out | ease-in-out | cubic-bezier*/</div><div class="line"></div><div class="line">动画效果</div><div class="line">linear 线性。不解释</div><div class="line">ease-in ,ease-out </div><div class="line">张大神的解释很生动形象，深入浅出。</div><div class="line">在xxoo时，in表示进入，开始进入的时候是慢的，等瞄准就绪后才能快速冲刺，于是乎ease-in表示先慢后快。</div><div class="line">ease-out表示出来，出来肯定是先快后慢，因为临近洞口速度肯定要降下来。于是ease-out表示先快后慢.</div><div class="line">最后easy-in-out表示一进一出，也就是先慢后快再慢了。哈哈。。</div></pre></td></tr></table></figure>
+<p>一个小例子<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line">    .tran&#123;</div><div class="line">        -webkit-transition: background-color 0.3s ease;</div><div class="line">        -moz-transition: background-color 0.3s ease;</div><div class="line">        -o-transition: background-color 0.3s ease;</div><div class="line">        transition: background-color 0.3s ease;</div><div class="line">    &#125;</div><div class="line">    .tran:hover&#123;</div><div class="line">        background-color: #486AAA;</div><div class="line">        color: #fff;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"tran"</span>&gt;</span>经过我<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><a href="/Demo/transition.html">Demo</a></p>
+<h1 id="transoform"><a href="#transoform" class="headerlink" title="transoform"></a>transoform</h1><p><code>transform</code>指可以拉伸，压缩，旋转，偏移。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//通过 skew() 方法，元素翻转给定的角度，根据给定的水平线（X 轴）和垂直线（Y 轴）参数</div><div class="line">//值 skew(30deg,20deg) 围绕 X 轴把元素翻转 30 度，围绕 Y 轴翻转 20 度。</div><div class="line">.trans_skew &#123; transform: skew(30deg,20deg); &#125;</div><div class="line">//通过 scale() 方法，元素的尺寸会增加或减少，根据给定的宽度（X 轴）和高度（Y 轴）参数</div><div class="line">//值 scale(1,0.5) 把宽度转换为原始尺寸的 1 倍，把高度转换为原始高度的 0.5 倍。</div><div class="line">.trans_scale &#123; transform:scale(1, 0.5); &#125;</div><div class="line">//通过 rotate() 方法，元素顺时针旋转给定的角度。允许负值，元素将逆时针旋转。</div><div class="line">//值 rotate(30deg) 把元素顺时针旋转 45 度。</div><div class="line">.trans_rotate &#123; transform:rotate(45deg); &#125;</div><div class="line">//通过 translate() 方法，元素从其当前位置移动，根据给定的 left（x 坐标） 和 top（y 坐标） 位置参数</div><div class="line">//值 translate(50px,100px) 把元素从左侧移动 50 像素，从顶端移动 100 像素。</div><div class="line">.trans_translate &#123; transform:translate(50px,100px); &#125;</div></pre></td></tr></table></figure>
+<p>一般情况transform属性要是加上transition的过渡特性，可以产生漂亮的动画，下面这个例子，代码如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">.trans_effect &#123;</div><div class="line">    -webkit-transition:all 2s ease-in-out;</div><div class="line">    -moz-transition:all 2s ease-in-out;</div><div class="line">    -o-transition:all 2s ease-in-out;</div><div class="line">    -ms-transition:all 2s ease-in-out;    </div><div class="line">    transition:all 2s ease-in-out;</div><div class="line">&#125;</div><div class="line">.trans_effect:hover &#123;</div><div class="line">    -webkit-transform:rotate(720deg) scale(2,2);</div><div class="line">    -moz-transform:rotate(720deg) scale(2,2);</div><div class="line">    -o-transform:rotate(720deg) scale(2,2);</div><div class="line">    -ms-transform:rotate(720deg) scale(2,2);</div><div class="line">    transform:rotate(720deg) scale(2,2);        </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="/Demo/transform.html">缩放旋转动画demo</a></p>
+<h1 id="animation"><a href="#animation" class="headerlink" title="animation"></a>animation</h1><p>animation是个简写属性</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>animation-name</td>
+<td>规定需要绑定到选择器的 keyframe 名称。。</td>
+</tr>
+<tr>
+<td>animation-duration</td>
+<td>规定完成动画所花费的时间，以秒或毫秒计。</td>
+</tr>
+<tr>
+<td>animation-timing-function</td>
+<td>规定动画的速度曲线。</td>
+</tr>
+<tr>
+<td>animation-delay</td>
+<td>规定在动画开始之前的延迟。</td>
+</tr>
+<tr>
+<td>animation-iteration-count</td>
+<td>规定动画应该播放的次数。</td>
+</tr>
+<tr>
+<td>animation-direction</td>
+<td>规定是否应该轮流反向播放动画。</td>
+</tr>
+</tbody>
+</table>
+<p>animation不仅适用于CSS2中的属性，CSS3也是支持的，例如box-shadow盒阴影效果，所以，我们可以实现外发光效果的。使用过web qq的人应该有印象，当鼠标移到聊天对象脑袋上的时候会有蓝色外发光的动画，但是那是gif动画图片实现的（现在自动跳转到web qq 2.0已看不到效果）。gif动画实现的效果类似于下面（很兼容）</p>
+<p><a href="/demo/animation.html">Demo</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/transition/" rel="tag">#transition</a>
+          
+            <a href="/tags/animation/" rel="tag">#animation</a>
+          
+            <a href="/tags/transform/" rel="tag">#transform</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/17/css-selector/" rel="next" title="CSS选择器备忘录">
+                <i class="fa fa-chevron-left"></i> CSS选择器备忘录
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/10/how-to-solve-the-space-between-inline-block/" rel="prev" title="解决inline-block元素的空白间隙">
+                解决inline-block元素的空白间隙 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2015/08/09/study-transition-transforms-animation/"
+     data-title="CSS3中的transition，transform，animation"
+     data-content=""
+     data-url="http://lordbaby.github.io/2015/08/09/study-transition-transforms-animation/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/08/09/study-transition-transforms-animation/"
+           data-title="CSS3中的transition，transform，animation" data-url="http://lordbaby.github.io/2015/08/09/study-transition-transforms-animation/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/gk5.jpg"
+               alt="HaiLiang" />
+          <p class="site-author-name" itemprop="name">HaiLiang</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lordbaby" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1988hailiang" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liulj88" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#transition"><span class="nav-number">1.</span> <span class="nav-text">transition</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#transoform"><span class="nav-number">2.</span> <span class="nav-text">transoform</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#animation"><span class="nav-number">3.</span> <span class="nav-text">animation</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HaiLiang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yinyf"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
