@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Github,SSHKey," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,16 +84,19 @@
 
 
 
-<meta name="description" content="sshkey是来用来确定受信任的计算机，而不涉及密码的一种方法。下面的步骤将引导您完成生成SSH密钥并添加公共密钥到你的GitHub上的帐户。">
+<meta name="description" content="如果数据共有N条，采用分页显示，每页显示M条，请问一共有多少页？请给出公式1int count = (N % M==0)?(N / M):(N / M + 1);
+这个做法是比较直观的思路。得出的结果是完全正确的。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Github add SSH key">
-<meta property="og:url" content="http://lordbaby.github.io/2015/09/25/github-add-ssh-key/index.html">
+<meta property="og:title" content="关于分页问题引发的思考">
+<meta property="og:url" content="http://lordbaby.github.io/2016/08/19/thinking-in-web-paging/index.html">
 <meta property="og:site_name" content="海亮de部落格">
-<meta property="og:description" content="sshkey是来用来确定受信任的计算机，而不涉及密码的一种方法。下面的步骤将引导您完成生成SSH密钥并添加公共密钥到你的GitHub上的帐户。">
-<meta property="og:updated_time" content="2016-08-17T09:33:27.939Z">
+<meta property="og:description" content="如果数据共有N条，采用分页显示，每页显示M条，请问一共有多少页？请给出公式1int count = (N % M==0)?(N / M):(N / M + 1);
+这个做法是比较直观的思路。得出的结果是完全正确的。">
+<meta property="og:updated_time" content="2016-08-19T09:13:00.658Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Github add SSH key">
-<meta name="twitter:description" content="sshkey是来用来确定受信任的计算机，而不涉及密码的一种方法。下面的步骤将引导您完成生成SSH密钥并添加公共密钥到你的GitHub上的帐户。">
+<meta name="twitter:title" content="关于分页问题引发的思考">
+<meta name="twitter:description" content="如果数据共有N条，采用分页显示，每页显示M条，请问一共有多少页？请给出公式1int count = (N % M==0)?(N / M):(N / M + 1);
+这个做法是比较直观的思路。得出的结果是完全正确的。">
 
 
 
@@ -114,9 +117,9 @@
 
 
 
-  <link rel="canonical" href="http://lordbaby.github.io/2015/09/25/github-add-ssh-key/"/>
+  <link rel="canonical" href="http://lordbaby.github.io/2016/08/19/thinking-in-web-paging/"/>
 
-  <title> Github add SSH key | 海亮de部落格 </title>
+  <title> 关于分页问题引发的思考 | 海亮de部落格 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -256,7 +259,7 @@
             
             
               
-                Github add SSH key
+                关于分页问题引发的思考
               
             
           </h1>
@@ -268,8 +271,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-09-25T17:16:57+08:00" content="2015-09-25">
-              2015-09-25
+            <time itemprop="dateCreated" datetime="2016-08-19T15:13:27+08:00" content="2016-08-19">
+              2016-08-19
             </time>
           </span>
 
@@ -282,8 +285,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/GitHub/" itemprop="url" rel="index">
-                    <span itemprop="name">GitHub</span>
+                  <a href="/categories/other/" itemprop="url" rel="index">
+                    <span itemprop="name">other</span>
                   </a>
                 </span>
 
@@ -298,8 +301,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/09/25/github-add-ssh-key/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/25/github-add-ssh-key/" itemprop="commentsCount"></span>
+                <a href="/2016/08/19/thinking-in-web-paging/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/19/thinking-in-web-paging/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -322,42 +325,23 @@
       
 
       
-        <p>sshkey是来用来确定受信任的计算机，而不涉及密码的一种方法。下面的步骤将引导您完成生成SSH密钥并添加公共密钥到你的GitHub上的帐户。</p>
+        <p>如果数据共有N条，采用分页显示，每页显示M条，请问一共有多少页？请给出公式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int count = (N % M==<span class="number">0</span>)?(N / M):(N / M + <span class="number">1</span>);</div></pre></td></tr></table></figure></p>
+<p>这个做法是比较直观的思路。得出的结果是完全正确的。</p>
 <a id="more"></a>
-<h2 id="1-检查电脑上是否已经有SSH-key"><a href="#1-检查电脑上是否已经有SSH-key" class="headerlink" title="1.检查电脑上是否已经有SSH key"></a>1.检查电脑上是否已经有SSH key</h2><p>打开Git bash</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ls -al ~/.ssh</div><div class="line"><span class="comment"># Lists the files in your .ssh directory, if they exist</span></div></pre></td></tr></table></figure>
-<p>这两个命令就是检查是否已经存在 id_rsa.pub 或 id_dsa.pub 文件，如果文件已经存在，那么你可以跳过步骤2，直接进入步骤3</p>
-<p>Tip:如果.ssh目录不存在，可以在第二部创建</p>
-<h2 id="2-创建一个SSHkey"><a href="#2-创建一个SSHkey" class="headerlink" title="2.创建一个SSHkey"></a>2.创建一个SSHkey</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -b 4096 -C <span class="string">"your_email@example.com"</span></div><div class="line"><span class="comment"># Creates a new ssh key, using the provided email as a label</span></div><div class="line"></div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/Users/you/.ssh/id_rsa): [Press enter]</div></pre></td></tr></table></figure>
-<p>代码参数含义：</p>
-<ul>
-<li>-t：指定密钥类型，默认是 rsa ，可以省略。</li>
-<li>-C：设置注释文字，比如邮箱。</li>
-<li>-f：指定密钥文件存储文件名(官方强烈建议用默认名字，那么就会生成 id_rsa 和 id_rsa.pub 两个秘钥文件)</li>
-</ul>
-<p>以上代码省略了<code>-f</code>参数，因此，运行上面那条命令后会让你输入一个文件名，用于保存刚才生成的 SSH </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase): [Type a passphrase]</div><div class="line"><span class="comment"># Enter same passphrase again: [Type passphrase again]</span></div></pre></td></tr></table></figure>
-<p>接下来输入密码，该密码是你用来push文件时需要输入的密码（非github的密码），接下来你会得到你的sshkey的指纹<br>如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Your identification has been saved <span class="keyword">in</span> /Users/you/.ssh/id_rsa.</div><div class="line"><span class="comment"># Your public key has been saved in /Users/you/.ssh/id_rsa.pub.</span></div><div class="line"><span class="comment"># The key fingerprint is:</span></div><div class="line"><span class="comment"># 01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com</span></div></pre></td></tr></table></figure>
-<p>当你看到上面这段代码的收，那就说明，你的SSH key已经创建成功，你只需要添加到github的SSH key上就可以了</p>
-<h2 id="3-添加你的SSH-key到Github上去"><a href="#3-添加你的SSH-key到Github上去" class="headerlink" title="3.添加你的SSH key到Github上去"></a>3.添加你的SSH key到Github上去</h2><ol>
-<li><p>首先你需要拷贝 id_rsa.pub 文件的内容，你可以用编辑器打开文件复制，也可以用git命令复制该文件的内容，如：</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ clip &lt; ~/.ssh/id_rsa.pub</div></pre></td></tr></table></figure>
-</li>
-<li><p>登录你的github账号，从又上角的设置（ Account Settings ）进入，然后点击菜单栏的 SSH key 进入页面添加 SSH key。</p>
-</li>
-<li>点击 Add SSH key 按钮添加一个 SSH key 。把你复制的 SSH key 代码粘贴到 key 所对应的输入框中，记得 SSH key 代码的前后不要留有空格或者回车。当然，上面的 Title 所对应的输入框你也可以输入一个该 SSH key 显示在 github 上的一个别名。默认的会使用你的邮件名称。</li>
+<p>然而这个方案需要一个%运算，一个判断运算，一个除法，而乘除、取余要比加减法效率低太多。如果用另外一种算法，可以减少一次乘除（取余），而且不用if..else…判断，当然也不用三元运算符权当锻炼脑子了，如何设计一个比这个方法效率更高的公式？</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>长时间不接触js的Math中的取整函数<code>Math.floor</code>,<code>Math.round</code>,<code>Math.ceil</code>，当用到的时候容易把那个是向下取整，哪个是向上取整，哪个是四舍五入都搞晕了。</p>
+<p>直到群里有小伙伴把floor（地板，肯定是向下咯），和ceil（ceiling天花板，那就向上吧）翻译成中文才变得好记，感谢这位朋友。有时候搞技术还是得触类旁通方能游刃有余，就比如张大神以前把缓动函数解释的深入浅出，触景生情，淋漓尽致，让人记忆犹新啊，哈哈。。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">就说说几个不好容易记的吧</div><div class="line"></div><div class="line">ease-in</div><div class="line"></div><div class="line">ease-out</div><div class="line"></div><div class="line">ease-in-out</div><div class="line"></div><div class="line">人脑记忆曲线是下滑的，长时间不接触难免遗忘，但你长得有特点，N年后街角的偶遇，wokao你是大痦子隔壁老王啊！！</div><div class="line">关于上面3个缓动函数张大神是这样解释的：</div><div class="line">咳咳咳，在XXOO时：</div><div class="line">in表示进入，开始进入的时候是慢的，等瞄准就绪后才能快速冲刺，于是乎ease-in似乎表示先慢后快。</div><div class="line">out表示出来，出来肯定是先快后慢，因为临近洞口速度肯定要降下来。于是ease-out似乎表示先快后慢。</div><div class="line">in-out表示一进一出，也就是先慢后快再慢了。</div><div class="line"></div><div class="line">这场景想象不得不服啊！</div></pre></td></tr></table></figure>
+<p>说到ceil函数，嗯，不错你想到了用ceil函数就可以搞定，我也是通过这个函数才想起4年前我的一位老师给我出的上面一道题。</p>
+<h1 id="N-M-1-M——向上取整"><a href="#N-M-1-M——向上取整" class="headerlink" title="(N+M-1)/M——向上取整"></a>(N+M-1)/M——向上取整</h1><p>多少页肯定是正整数，在高级编程语言中比如java c#除法都是向下取整的（如果结果是整数）。</p>
+<p>表达式的运算结果就是平均最少分多少页。(N+M-1)/M可以分解为N/M+(M-1)/M</p>
+<p>分析一下啊：</p>
+<ol>
+<li>当N/M正好除尽时，那么0加上(M-1)，除以M，等于0，则结果是商值。</li>
+<li>当N/M除不尽时，那么余数加上(M-1)，除以M，等于1，结果是商值加1。</li>
 </ol>
-<h2 id="4-测试一下该SSH-key"><a href="#4-测试一下该SSH-key" class="headerlink" title="4. 测试一下该SSH key"></a>4. 测试一下该SSH key</h2><p>在git bash中输入以下代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh -T git@github.com</div></pre></td></tr></table></figure>
-<p>当你输入以上代码时，会有一段警告代码，如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">The authenticity of host <span class="string">'github.com (207.97.227.239)'</span> can<span class="string">'t be established.</span></div><div class="line"># RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</div><div class="line"># Are you sure you want to continue connecting (yes/no)?</div></pre></td></tr></table></figure>
-<p>这是正常的，你输入 yes 回车既可。如果你创建 SSH key 的时候设置了密码，接下来就会提示你输入密码，如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Enter passphrase <span class="keyword">for</span> key <span class="string">'/c/Users/Administrator/.ssh/id_rsa'</span>:</div></pre></td></tr></table></figure>
-<p>当然如果你密码输错了，会再要求你输入，知道对了为止。<br>注意：输入密码时如果输错一个字就会不正确，使用删除键是无法更正的。<br>密码正确后你会看到下面这段话，如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Hi username! You<span class="string">'ve successfully authenticated, but GitHub does not</span></div><div class="line"># provide shell access.</div></pre></td></tr></table></figure>
-<p>如果用户名是正确的,你已经成功设置SSH密钥。如果你看到 “access denied” ，者表示拒绝访问，那么你就需要使用 https 去访问，而不是 SSH </p>
-<p>参考文档：<a href="https://help.github.com/articles/generating-ssh-keys/" target="_blank" rel="external">https://help.github.com/articles/generating-ssh-keys/</a></p>
+<p>像baidu google这样并发访问量比较高，性能比较高的搜索引擎，他们的分页算法应该不会是三元法来分页，也不知道是如何分页的，应该是底层的代码写的。</p>
+<p>针对于高级语言，向上取整–(N+M-1)/M 是个不错的公式，避免用内置函数，提高效率。如果是js还是老老实实的用Math.ceil吧，弱类型就决定它除法不会是整数。</p>
 
       
     </div>
@@ -378,30 +362,18 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Github/" rel="tag">#Github</a>
-          
-            <a href="/tags/SSHKey/" rel="tag">#SSHKey</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/15/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2016/05/18/analysis-of-url-shortcut/" rel="next" title="解析url的快捷方式">
+                <i class="fa fa-chevron-left"></i> 解析url的快捷方式
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/07/this-call-apply/" rel="prev" title="this，call和apply">
-                this，call和apply <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -416,10 +388,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/09/25/github-add-ssh-key/"
-     data-title="Github add SSH key"
+        <div class="ds-share flat" data-thread-key="2016/08/19/thinking-in-web-paging/"
+     data-title="关于分页问题引发的思考"
      data-content=""
-     data-url="http://lordbaby.github.io/2015/09/25/github-add-ssh-key/">
+     data-url="http://lordbaby.github.io/2016/08/19/thinking-in-web-paging/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -446,8 +418,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/09/25/github-add-ssh-key/"
-           data-title="Github add SSH key" data-url="http://lordbaby.github.io/2015/09/25/github-add-ssh-key/">
+      <div class="ds-thread" data-thread-key="2016/08/19/thinking-in-web-paging/"
+           data-title="关于分页问题引发的思考" data-url="http://lordbaby.github.io/2016/08/19/thinking-in-web-paging/">
       </div>
     
   </div>
@@ -567,7 +539,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-检查电脑上是否已经有SSH-key"><span class="nav-number">1.</span> <span class="nav-text">1.检查电脑上是否已经有SSH key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-创建一个SSHkey"><span class="nav-number">2.</span> <span class="nav-text">2.创建一个SSHkey</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-添加你的SSH-key到Github上去"><span class="nav-number">3.</span> <span class="nav-text">3.添加你的SSH key到Github上去</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-测试一下该SSH-key"><span class="nav-number">4.</span> <span class="nav-text">4. 测试一下该SSH key</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#N-M-1-M——向上取整"><span class="nav-number">2.</span> <span class="nav-text">(N+M-1)/M——向上取整</span></a></li></ol></div>
             
           </div>
         </section>
