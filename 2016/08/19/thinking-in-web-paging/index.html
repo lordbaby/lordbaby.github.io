@@ -55,7 +55,7 @@
   
     
     
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="//fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="海亮de部落格">
 <meta property="og:description" content="如果数据共有N条，采用分页显示，每页显示M条，请问一共有多少页？请给出公式1int count = (N % M==0)?(N / M):(N / M + 1);
 这个做法是比较直观的思路。得出的结果是完全正确的。">
-<meta property="og:updated_time" content="2016-08-19T09:13:00.658Z">
+<meta property="og:updated_time" content="2016-08-19T09:21:24.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于分页问题引发的思考">
 <meta name="twitter:description" content="如果数据共有N条，采用分页显示，每页显示M条，请问一共有多少页？请给出公式1int count = (N % M==0)?(N / M):(N / M + 1);
@@ -333,7 +333,7 @@
 <p>直到群里有小伙伴把floor（地板，肯定是向下咯），和ceil（ceiling天花板，那就向上吧）翻译成中文才变得好记，感谢这位朋友。有时候搞技术还是得触类旁通方能游刃有余，就比如张大神以前把缓动函数解释的深入浅出，触景生情，淋漓尽致，让人记忆犹新啊，哈哈。。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">就说说几个不好容易记的吧</div><div class="line"></div><div class="line">ease-in</div><div class="line"></div><div class="line">ease-out</div><div class="line"></div><div class="line">ease-in-out</div><div class="line"></div><div class="line">人脑记忆曲线是下滑的，长时间不接触难免遗忘，但你长得有特点，N年后街角的偶遇，wokao你是大痦子隔壁老王啊！！</div><div class="line">关于上面3个缓动函数张大神是这样解释的：</div><div class="line">咳咳咳，在XXOO时：</div><div class="line">in表示进入，开始进入的时候是慢的，等瞄准就绪后才能快速冲刺，于是乎ease-in似乎表示先慢后快。</div><div class="line">out表示出来，出来肯定是先快后慢，因为临近洞口速度肯定要降下来。于是ease-out似乎表示先快后慢。</div><div class="line">in-out表示一进一出，也就是先慢后快再慢了。</div><div class="line"></div><div class="line">这场景想象不得不服啊！</div></pre></td></tr></table></figure>
 <p>说到ceil函数，嗯，不错你想到了用ceil函数就可以搞定，我也是通过这个函数才想起4年前我的一位老师给我出的上面一道题。</p>
-<h1 id="N-M-1-M——向上取整"><a href="#N-M-1-M——向上取整" class="headerlink" title="(N+M-1)/M——向上取整"></a>(N+M-1)/M——向上取整</h1><p>多少页肯定是正整数，在高级编程语言中比如java c#除法都是向下取整的（如果结果是整数）。</p>
+<h1 id="N-M-1-M——向上取整"><a href="#N-M-1-M——向上取整" class="headerlink" title="(N+M-1)/M——向上取整"></a>(N+M-1)/M——向上取整</h1><p>多少页肯定是正整数，在高级编程语言中比如java c#，如果定义一个int型的变量，比如<code>int a=5/2</code>,那么a=2，在强类型语言中除法都是向下取整的。</p>
 <p>表达式的运算结果就是平均最少分多少页。(N+M-1)/M可以分解为N/M+(M-1)/M</p>
 <p>分析一下啊：</p>
 <ol>
