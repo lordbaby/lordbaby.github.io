@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Node.js," />
 
 
 
@@ -84,19 +84,16 @@
 
 
 
-<meta name="description" content="如果数据共有N条，采用分页显示，每页显示M条，请问一共有多少页？请给出公式1int count = (N % M==0)?(N / M):(N / M + 1);
-这个做法是比较直观的思路。得出的结果是完全正确的。">
+<meta name="description" content="require是用来加载代码，它们两个则是用来导出代码，一开始学习node.js时会迷惑它们区别是什么。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于分页问题引发的思考">
-<meta property="og:url" content="http://lordbaby.github.io/2016/08/19/thinking-in-web-paging/index.html">
+<meta property="og:title" content="exports和module.exports的区别">
+<meta property="og:url" content="http://lordbaby.github.io/2015/06/24/between-exports-and-module-exports-difference/index.html">
 <meta property="og:site_name" content="海亮de部落格">
-<meta property="og:description" content="如果数据共有N条，采用分页显示，每页显示M条，请问一共有多少页？请给出公式1int count = (N % M==0)?(N / M):(N / M + 1);
-这个做法是比较直观的思路。得出的结果是完全正确的。">
-<meta property="og:updated_time" content="2016-08-19T09:21:24.548Z">
+<meta property="og:description" content="require是用来加载代码，它们两个则是用来导出代码，一开始学习node.js时会迷惑它们区别是什么。">
+<meta property="og:updated_time" content="2016-11-24T06:01:53.134Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于分页问题引发的思考">
-<meta name="twitter:description" content="如果数据共有N条，采用分页显示，每页显示M条，请问一共有多少页？请给出公式1int count = (N % M==0)?(N / M):(N / M + 1);
-这个做法是比较直观的思路。得出的结果是完全正确的。">
+<meta name="twitter:title" content="exports和module.exports的区别">
+<meta name="twitter:description" content="require是用来加载代码，它们两个则是用来导出代码，一开始学习node.js时会迷惑它们区别是什么。">
 
 
 
@@ -117,9 +114,9 @@
 
 
 
-  <link rel="canonical" href="http://lordbaby.github.io/2016/08/19/thinking-in-web-paging/"/>
+  <link rel="canonical" href="http://lordbaby.github.io/2015/06/24/between-exports-and-module-exports-difference/"/>
 
-  <title> 关于分页问题引发的思考 | 海亮de部落格 </title>
+  <title> exports和module.exports的区别 | 海亮de部落格 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -259,7 +256,7 @@
             
             
               
-                关于分页问题引发的思考
+                exports和module.exports的区别
               
             
           </h1>
@@ -271,8 +268,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-19T15:13:27+08:00" content="2016-08-19">
-              2016-08-19
+            <time itemprop="dateCreated" datetime="2015-06-24T13:39:43+08:00" content="2015-06-24">
+              2015-06-24
             </time>
           </span>
 
@@ -285,8 +282,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/other/" itemprop="url" rel="index">
-                    <span itemprop="name">other</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -301,8 +298,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/19/thinking-in-web-paging/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/19/thinking-in-web-paging/" itemprop="commentsCount"></span>
+                <a href="/2015/06/24/between-exports-and-module-exports-difference/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/24/between-exports-and-module-exports-difference/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -325,23 +322,23 @@
       
 
       
-        <p>如果数据共有N条，采用分页显示，每页显示M条，请问一共有多少页？请给出公式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int count = (N % M==<span class="number">0</span>)?(N / M):(N / M + <span class="number">1</span>);</div></pre></td></tr></table></figure></p>
-<p>这个做法是比较直观的思路。得出的结果是完全正确的。</p>
-<a id="more"></a>
-<p>然而这个方案需要一个%运算，一个判断运算，一个除法，而乘除、取余要比加减法效率低太多。如果用另外一种算法，可以减少一次乘除（取余），而且不用if..else…判断，当然也不用三元运算符权当锻炼脑子了，如何设计一个比这个方法效率更高的公式？</p>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>长时间不接触js的Math中的取整函数<code>Math.floor</code>,<code>Math.round</code>,<code>Math.ceil</code>，当用到的时候容易把那个是向下取整，哪个是向上取整，哪个是四舍五入都搞晕了。</p>
-<p>直到群里有小伙伴把floor（地板，肯定是向下咯），和ceil（ceiling天花板，那就向上吧）翻译成中文才变得好记，感谢这位朋友。有时候搞技术还是得触类旁通方能游刃有余，就比如张大神以前把缓动函数解释的深入浅出，触景生情，淋漓尽致，让人记忆犹新啊，哈哈。。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">就说说几个不好容易记的吧</div><div class="line"></div><div class="line">ease-in</div><div class="line"></div><div class="line">ease-out</div><div class="line"></div><div class="line">ease-in-out</div><div class="line"></div><div class="line">人脑记忆曲线是下滑的，长时间不接触难免遗忘，但你长得有特点，N年后街角的偶遇，wokao你是大痦子隔壁老王啊！！</div><div class="line">关于上面3个缓动函数张大神是这样解释的：</div><div class="line">咳咳咳，在XXOO时：</div><div class="line">in表示进入，开始进入的时候是慢的，等瞄准就绪后才能快速冲刺，于是乎ease-in似乎表示先慢后快。</div><div class="line">out表示出来，出来肯定是先快后慢，因为临近洞口速度肯定要降下来。于是ease-out似乎表示先快后慢。</div><div class="line">in-out表示一进一出，也就是先慢后快再慢了。</div><div class="line"></div><div class="line">这场景想象不得不服啊！</div></pre></td></tr></table></figure>
-<p>说到ceil函数，嗯，不错你想到了用ceil函数就可以搞定，我也是通过这个函数才想起4年前我的一位老师给我出的上面一道题。</p>
-<h1 id="N-M-1-M——向上取整"><a href="#N-M-1-M——向上取整" class="headerlink" title="(N+M-1)/M——向上取整"></a>(N+M-1)/M——向上取整</h1><p>多少页肯定是正整数，在高级编程语言中比如java c#，如果定义一个int型的变量，比如<code>int a=5/2</code>,那么a=2，在强类型语言中除法都是向下取整的。</p>
-<p>表达式的运算结果就是平均最少分多少页。(N+M-1)/M可以分解为N/M+(M-1)/M</p>
-<p>分析一下啊：</p>
+        <p>require是用来加载代码，它们两个则是用来导出代码，一开始学习node.js时会迷惑它们区别是什么。<br><a id="more"></a></p>
+<h1 id="js基础"><a href="#js基础" class="headerlink" title="js基础"></a>js基础</h1><p>先来看一段代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a=&#123;name:<span class="number">1</span>&#125;;</div><div class="line"><span class="keyword">var</span> b=a;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line">b.name=<span class="number">2</span>;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line">b=&#123;name:<span class="number">3</span>&#125;;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line"><span class="comment">//运行结果</span></div><div class="line"><span class="comment">/*</span></div><div class="line">&#123;name:1&#125;</div><div class="line">&#123;name:1&#125;</div><div class="line">&#123;name:2&#125;</div><div class="line">&#123;name:2&#125;</div><div class="line">&#123;name:2&#125;</div><div class="line">&#123;name:3&#125;</div><div class="line"> */</div></pre></td></tr></table></figure>
+<p>a是一个对象，b是对a的引用，即ab都指向同一内存地址。当修改b时，ab指向同一内存地址的内容发生变化，所以a也体现出来了。当b被赋值另一个对象时 会在内存中重新分配地址，b会指向新的内存地址，而a则不会变。</p>
+<h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><p>明白上面的例子，只需要知道3点就知道exports和module.exports的区别了：</p>
 <ol>
-<li>当N/M正好除尽时，那么0加上(M-1)，除以M，等于0，则结果是商值。</li>
-<li>当N/M除不尽时，那么余数加上(M-1)，除以M，等于1，结果是商值加1。</li>
+<li>module.exports的初始值为一个空对象。</li>
+<li>exports是指向module.exports的引用。</li>
+<li>require()返回的是module.exports而不是exports。</li>
 </ol>
-<p>像baidu google这样并发访问量比较高，性能比较高的搜索引擎，他们的分页算法应该不会是三元法来分页，也不知道是如何分页的，应该是底层的代码写的。</p>
-<p>针对于高级语言，向上取整–(N+M-1)/M 是个不错的公式，避免用内置函数，提高效率。如果是js还是老老实实的用Math.ceil吧，弱类型就决定它除法不会是整数。</p>
+<p>Node.js官网文档</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//the exports variable that is available within a module starts as a reference to module.exports. As with any variable, //if you assign a new value to it,it is no longer bound to the previous value</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">require</span>(<span class="params">...</span>)</span>&#123;</div><div class="line">    ((<span class="built_in">module</span>,exports) =&gt;&#123;</div><div class="line">        exports=some_func;</div><div class="line"></div><div class="line">        <span class="built_in">module</span>.exports=some_func;</div><div class="line">    &#125;)(<span class="built_in">module</span>,<span class="built_in">module</span>.exports);</div><div class="line">    <span class="keyword">return</span> <span class="built_in">module</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//as a guideline ,if the relationship between exoirts and moudule.exports semms like magic to you , ignore exports and only use module.exports</span></div></pre></td></tr></table></figure>
+<p>经常看见这样的写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">等价于</div></pre></td></tr></table></figure>
+<p>module.exports={….}</p>
+<p>exports=module.exports<br>```</p>
+<p>原理很简单：module.exports指向新对象时，exports就断开了与module.exports的引用，那么通过exports=module.exports让exports重新指向了module.exports</p>
 
       
     </div>
@@ -362,21 +359,23 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Node-js/" rel="tag">#Node.js</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/18/analysis-of-url-shortcut/" rel="next" title="解析url的快捷方式">
-                <i class="fa fa-chevron-left"></i> 解析url的快捷方式
-              </a>
-            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/09/04/a-list-everything-that-in-the-head-of-your-document/" rel="prev" title="网页head头部下的所有可能包含的信息">
-                网页head头部下的所有可能包含的信息 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/07/17/css-selector/" rel="prev" title="CSS选择器备忘录">
+                CSS选择器备忘录 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -392,10 +391,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/08/19/thinking-in-web-paging/"
-     data-title="关于分页问题引发的思考"
+        <div class="ds-share flat" data-thread-key="2015/06/24/between-exports-and-module-exports-difference/"
+     data-title="exports和module.exports的区别"
      data-content=""
-     data-url="http://lordbaby.github.io/2016/08/19/thinking-in-web-paging/">
+     data-url="http://lordbaby.github.io/2015/06/24/between-exports-and-module-exports-difference/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -422,8 +421,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/19/thinking-in-web-paging/"
-           data-title="关于分页问题引发的思考" data-url="http://lordbaby.github.io/2016/08/19/thinking-in-web-paging/">
+      <div class="ds-thread" data-thread-key="2015/06/24/between-exports-and-module-exports-difference/"
+           data-title="exports和module.exports的区别" data-url="http://lordbaby.github.io/2015/06/24/between-exports-and-module-exports-difference/">
       </div>
     
   </div>
@@ -543,7 +542,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#N-M-1-M——向上取整"><span class="nav-number">2.</span> <span class="nav-text">(N+M-1)/M——向上取整</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#js基础"><span class="nav-number">1.</span> <span class="nav-text">js基础</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#区别"><span class="nav-number">2.</span> <span class="nav-text">区别</span></a></li></ol></div>
             
           </div>
         </section>
