@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>animation</title>
+	<style type="text/css">
+		.anim_box{
+			width: 100px;
+			height: 100px;
+			margin: 200px auto;
+			border: 1px solid #486AAA;
+			background-color: rgb(190, 206, 235);
+			text-align: center;
+		}
+
+		@-webkit-keyframes resize{
+			0%{
+				padding: 0;
+			}
+			50%{
+				padding: 0 20px;
+				background-color: rgba(190, 206, 235, .2);
+			}
+			100%{
+				padding: 0 100px;
+				background-color: rgba(190, 206, 235, .9);
+			}
+		}
+
+		.anim_box:hover{
+			-webkit-animation: resize 1.5s ease-in-out 4 alternate;
+			   -moz-animation: resize 1.5s ease-in-out 4 alternate;
+			    -ms-animation: resize 1.5s ease-in-out 4 alternate;
+			     -o-animation: resize 1.5s ease-in-out 4 alternate;
+			        animation: resize 1.5s ease-in-out 4 alternate;
+		}
+
+		.avator{
+			width: 100px;
+			height: 100px;
+			margin: 20px auto;
+			background-color: white;
+			border: 1px solid #beceeb;
+			-webkit-box-shadow: 0 0 8px rgba(72, 106, 170, 0.5);
+			   -moz-box-shadow: 0 0 8px rgba(72, 106, 170, 0.5);
+    				box-shadow: 0 0 8px rgba(72, 106, 170, 0.5);
+		}
+		.avator:hover{
+			background-color: #f0f3f9;
+			-webkit-animation: glow 1s ease-in-out  infinite alternate;
+			   -moz-animation: glow 1s ease-in-out  infinite alternate;
+			    -ms-animation: glow 1s ease-in-out  infinite alternate;
+			     -o-animation: glow 1s ease-in-out  infinite alternate;
+			        animation: glow 1s ease-in-out  infinite alternate;
+		}
+
+		@-webkit-keyframes glow{
+			0%{
+				-webkit-box-shadow:0 0 12px rgba(72,106,170,.5);
+				border-color: rgba(160,179,214,.5); 
+			}
+			100%{
+				-webkit-box-shadow:0 0 12px rgba(72,106,170,1.0), 0 0 18px rgba(0, 140, 255, 1.0);
+				border-color: rgba(160,179,214,1.0); 
+			}
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="anim_box">
+		摸我
+	</div>
+	<div class="avator">我是头像</div>
+</body>
+</html>
