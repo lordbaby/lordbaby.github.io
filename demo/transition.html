@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		a{
+			text-decoration: none;
+			color: #000;
+			font-size: 16px;
+
+		}
+		.trans{
+			display: inline-block;
+			margin: 20px;
+			padding: 5px;
+			background-color: #486AAA;
+			-webkit-transition: background-color .3s ease;
+			   -moz-transition: background-color .3s ease;
+			    -ms-transition: background-color .3s ease;
+			     -o-transition: background-color .3s ease;
+			        transition: background-color .3s ease;
+		}
+		.trans:hover{
+			background-color: #486AAA;
+			color: #fff;
+		}
+	.trans_box{
+		margin: 20px 0 0 20px;
+		padding: 5px;
+		border: 1px solid #486AAA;
+		width: 600px;
+
+	}
+	.trans_list{
+		width: 10%;
+		height: 64px;
+		margin: 10px 0;
+		background-color: #486AAA;
+		color: #fff;
+		text-align: center;
+	}
+	.ease{
+		-webkit-transition: all 2s ease;
+		   -moz-transition: all 2s ease;
+		    -ms-transition: all 2s ease;
+		     -o-transition: all 2s ease;
+		        transition: all 2s ease;
+	}
+	.ease-in{
+		-webkit-transition: all 2s ease-in;
+		   -moz-transition: all 2s ease-in;
+		    -ms-transition: all 2s ease-in;
+		     -o-transition: all 2s ease-in;
+		        transition: all 2s ease-in;
+	}
+	.ease-out{
+		-webkit-transition: all 2s ease-out;
+		   -moz-transition: all 2s ease-out;
+		    -ms-transition: all 2s ease-out;
+		     -o-transition: all 2s ease-out;
+		        transition: all 2s ease-out;
+	}
+	.ease-in-out{
+		-webkit-transition: all 2s ease-in-out;
+		   -moz-transition: all 2s ease-in-out;
+		    -ms-transition: all 2s ease-in-out;
+		     -o-transition: all 2s ease-in-out;
+		        transition: all 2s ease-in-out;
+	}
+	.linear{
+		-webkit-transition: all 2s linear;
+		   -moz-transition: all 2s linear;
+		    -ms-transition: all 2s linear;
+		     -o-transition: all 2s linear;
+		        transition: all 2s linear;
+	}
+
+	.trans_list:hover{
+		width: 100%;
+	}
+
+	</style>
+</head>
+<body>
+	
+	
+	<a href="#" class="trans">经过我</a>
+
+	<div class="trans_box">
+		<div class="trans_list ease">ease</div>
+		<div class="trans_list ease-in">ease-in</div>
+		<div class="trans_list ease-out">ease-out</div>
+		<div class="trans_list ease-in-out">ease-in-out</div>
+		<div class="trans_list linear">linear</div>
+	</div>
+</body>
+</html>
