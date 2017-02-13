@@ -124,6 +124,7 @@ social:
   GitHub: https://github.com/lordbaby
   微博: http://weibo.com/1988hailiang
   知乎: https://www.zhihu.com/people/liulj88
+  相册: https://lordbaby.github.io/react-gallery/
 
 
 
@@ -137,8 +138,9 @@ social_icons:
   # Icon Mappings.
   # KeyMapsToSocalItemKey: NameOfTheIconFromFontAwesome
   GitHub: github
-  Twitter: twitter
-  Weibo: weibo
+  微博: weibo
+  知乎: paper-plane
+  相册: photo
 
 #打赏功能
 #reward_comment: 坚持原创技术分享，您的支持将鼓励我继续创作！
@@ -148,7 +150,7 @@ social_icons:
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.jpg
 # in site  directory(source/uploads): /uploads/avatar.jpg
-avatar: /uploads/gk5.jpg
+avatar: /uploads/dingdang.gif
 
 
 # Table Of Contents in the Sidebar
