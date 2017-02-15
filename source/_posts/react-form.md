@@ -1,11 +1,13 @@
---- React中的表单
-title: react-form
+--- 
+title: React中的表单
 date: 2017-01-15 10:00:21
 tags: [React]
 categories: React
 ---
 
 表单在web中的作用很重要，本文总结于《深入React技术栈》
+
+<!--more-->
 
 ## 文本框
 
