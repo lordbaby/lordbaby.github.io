@@ -1,0 +1,759 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="http://fonts.useso.com//css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="React," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="React的生命周期可分为挂载、渲染和卸载几个阶段，当然组件更新时会重新渲染组件。本文总结于《深入React技术栈》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React的生命周期">
+<meta property="og:url" content="http://lordbaby.github.io/2017/02/13/react-life-cycle/index.html">
+<meta property="og:site_name" content="海亮de部落格">
+<meta property="og:description" content="React的生命周期可分为挂载、渲染和卸载几个阶段，当然组件更新时会重新渲染组件。本文总结于《深入React技术栈》">
+<meta property="og:updated_time" content="2017-04-15T14:23:55.186Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React的生命周期">
+<meta name="twitter:description" content="React的生命周期可分为挂载、渲染和卸载几个阶段，当然组件更新时会重新渲染组件。本文总结于《深入React技术栈》">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 4796736,
+      author: 'admin'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://lordbaby.github.io/2017/02/13/react-life-cycle/"/>
+
+  <title> React的生命周期 | 海亮de部落格 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?879e38c58af922c23ad21390d3d53618";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">海亮de部落格</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                React的生命周期
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-13T15:56:21+08:00" content="2017-02-13">
+              2017-02-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/13/react-life-cycle/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/13/react-life-cycle/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>React的生命周期可分为挂载、渲染和卸载几个阶段，当然组件更新时会重新渲染组件。本文总结于《深入React技术栈》</p>
+<a id="more"></a>
+<h1 id="初探React生命周期"><a href="#初探React生命周期" class="headerlink" title="初探React生命周期"></a>初探React生命周期</h1><p>在自定义组件时，需要在组件生命周期的不同阶段实现不同的逻辑，（为了方便查看组件的生命周期顺序，推荐使用react-lifecycle-mixin）</p>
+<p>下面是一张流程图，画图工具：<a href="http://asciiflow.com/" target="_blank" rel="external">ASCIIFlow</a>，纯文本，Geek风格，很不幸它不支持中文。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">+-----------+                                +-----------------------+</div><div class="line">|   start   +-----+ReactDOM.render()+-------&gt;+       constructor     |</div><div class="line">+-----------+                                +-----------+-----------+</div><div class="line">                                                         |</div><div class="line">                                                         v</div><div class="line">                                             +-----------+-----------+                  +----------------------------+</div><div class="line">                                             |   componentWillMount  | &lt;----------------+ can use this.setState()    |</div><div class="line">+------------------------------+             +-----------+-----------+                  +----------------------------+</div><div class="line">|    componentWillUnmount      |                         |                                                           |</div><div class="line">+----+-------------------------+                         v                                                           |</div><div class="line">     ^                                       +-----------+-----------+                                               |</div><div class="line">     |                                       |         render        |                                               |</div><div class="line">     |                                       +-----------+-----------+                                               |</div><div class="line">     |                                                   |                                                           |</div><div class="line">     |                                                   v                                                           |</div><div class="line">     |                                       +-----------+-----------+                                               |</div><div class="line">     |                                       |   componentDidMount   | &lt;---------------------------------------------+</div><div class="line">     |                                       +-----------+-----------+                                               |</div><div class="line">     |                                                   |                                                           |</div><div class="line">     |                                       +-----------v-----+  props change   +-----------------------------+     |</div><div class="line">     +------ReactDOM.------------------------+     Running     +---------------&gt; | componentWillReceiveProps   | &lt;---+</div><div class="line">            unmountComponentAtNode()         |                 |                 +---------------+-------------+     |</div><div class="line">                                             +-+----+-+--+-----+                                 v                   |</div><div class="line">                                               ^    | ^  |     setState()        +---------------+-------------+     |</div><div class="line">                                               |    | |  +---------------------&gt; |    shouldComponentUpdate    |     |</div><div class="line">                                               |    | |                          +-----------------------------+     |</div><div class="line">                                               |    | +-------------- false ---------------------+                   |</div><div class="line">                                               |    |                                           true                 |</div><div class="line">                                               |    |                                            +                   |</div><div class="line">                                               |    |                            +---------------v-------------+     |</div><div class="line">                                               |    +-------forceUpdate()------&gt; |    componentWillUpdate      |     |</div><div class="line">                                               |                                 +---------------+-------------+     |</div><div class="line">                                               |                                                 |                   |</div><div class="line">                                               |                                 +---------------v-------------+     |</div><div class="line">                                               |                                 |            render           |     |</div><div class="line">                                               |                                 +---------------+-------------+     |</div><div class="line">                                               |                                                 |                   |</div><div class="line">                                               |                                 +---------------v-------------+     |</div><div class="line">                                               +---------------------------------+      componentDidUpdate     | &lt;---+</div><div class="line">                                                                                 +-----------------------------+</div></pre></td></tr></table></figure>
+<ol>
+<li><strong>首次挂载组件</strong>，执行顺序<code>getDefaultProps</code> =&gt; <code>getInitialState</code> =&gt; <code>componentWillMount</code> =&gt; <code>render</code> =&gt; <code>componentDidMount</code></li>
+<li><strong>卸载组件</strong>，执行<code>componentWillUnmount</code></li>
+<li><strong>重新挂载组件</strong>，执行 <code>getInitialState</code> =&gt; <code>componentWillMount</code> =&gt; <code>render</code> =&gt; <code>componentDidMount</code>，并没有执行<code>getDefaultProps</code></li>
+<li><strong>更新组件</strong>，执行顺序 <code>componentReceiveProps</code> =&gt; <code>shouldComponentUpdate</code> =&gt; <code>componentWillUpdate</code> =&gt; <code>render</code> =&gt; <code>componentDidUpdate</code>.</li>
+</ol>
+<p>ES6 class构建组件时，<code>static defaultProps={}</code>其实就是调用的内部方法<code>getDefaultProps</code>，<code>contructor</code>中的<code>this.state={}</code>调用的是<code>getInitialState()</code>。</p>
+<p>生命周期执行顺序图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">+-------------------------------+   +-----------------------------------+  +--------------------------------+</div><div class="line">|        First Render           |   |            Props Change           |  |          State Change          |</div><div class="line">+-------------------------------+   +-----------------------------------+  +--------------------------------+</div><div class="line">|                               |   |                                   |  |                                |</div><div class="line">|  +-------------------------+  |   |   +---------------------------+   |  |   +------------------------+   |</div><div class="line">|  |   getDefaultProps       |  |   |   | componentWillReceiveProps |   |  |   |    shouldComponent     |   |</div><div class="line">|  +-------------------------+  |   |   +---------------------------+   |  |   +------------------------+   |</div><div class="line">|                               |   |                                   |  |                                |</div><div class="line">|  +-------------------------+  |   |   +---------------------------+   |  |   +------------------------+   |</div><div class="line">|  |   getInitialState       |  |   |   |   shouldComponentUpdate   |   |  |   |   componentWillUpdate  |   |</div><div class="line">|  +-------------------------+  |   |   +---------------------------+   |  |   +------------------------+   |</div><div class="line">|                               |   |                                   |  |                                |</div><div class="line">|  +-------------------------+  |   |   +---------------------------+   |  |   +------------------------+   |</div><div class="line">|  |   componentWillMount    |  |   |   |    componentWillUpdate    |   |  |   |         render         |   |</div><div class="line">|  +-------------------------+  |   |   +---------------------------+   |  |   +------------------------+   |</div><div class="line">|                               |   |                                   |  |                                |</div><div class="line">|  +-------------------------+  |   |   +---------------------------+   |  |   +------------------------+   |</div><div class="line">|  |         render          |  |   |   |          render           |   |  |   |   componentDidUpdate   |   |</div><div class="line">|  +-------------------------+  |   |   +---------------------------+   |  |   +------------------------+   |</div><div class="line">|                               |   |                                   |  |                                |</div><div class="line">|  +-------------------------+  |   |   +---------------------------+   |  |                                |</div><div class="line">|  |    componentDidMout     |  |   |   |    componentDidUpdate     |   |  |                                |</div><div class="line">|  +-------------------------+  |   |   +---------------------------+   |  |                                |</div><div class="line">|                               |   |                                   |  |                                |</div><div class="line">+-------------------------------+   +-----------------------------------+  +--------------------------------+</div><div class="line"></div><div class="line">+-------------------------------+   +-----------------------------------+</div><div class="line">|           Unmount             |   |          Second Render            |</div><div class="line">+-------------------------------+   +-----------------------------------+</div><div class="line">|  +-------------------------+  |   |   +---------------------------+   |</div><div class="line">|  |  componentWillUnmount   |  |   |   |      getInitialState      |   |</div><div class="line">|  +-------------------------+  |   |   +---------------------------+   |</div><div class="line">+-------------------------------+   |   +---------------------------+   |</div><div class="line">                                    |   |     componentWillMount    |   |</div><div class="line">                                    |   +---------------------------+   |</div><div class="line">                                    |   +---------------------------+   |</div><div class="line">                                    |   |           render          |   |</div><div class="line">                                    |   +---------------------------+   |</div><div class="line">                                    |   +---------------------------+   |</div><div class="line">                                    |   |     componentDidMount     |   |</div><div class="line">                                    |   +---------------------------+   |</div><div class="line">                                    |                                   |</div><div class="line">                                    +-----------------------------------+</div></pre></td></tr></table></figure>
+<ul>
+<li>为何 React 会按上述顺序执行生命周期？</li>
+<li>为何 React 多次 render 时，会执行生命周期的不同阶段？</li>
+<li>为何 getDefaultProps 只执行了1次？</li>
+</ul>
+<h1 id="详解React生命周期"><a href="#详解React生命周期" class="headerlink" title="详解React生命周期"></a>详解React生命周期</h1><p>自定义组件(ReactCompositeComponent)的生命周期主要通过三个阶段进行管理：<strong>MOUNTING</strong>，<strong>RECIEVE_PROPS</strong>，<strong>UNMOUNTING</strong>,他们负责通知组件当前所处的阶段，应该执行生命周期中的哪个步骤，三个阶段对应三种方法，分别是：</p>
+<ul>
+<li>MOUNTING -&gt; mountComponent</li>
+<li>RECIEVE_PROPS -&gt; updateComponent</li>
+<li>UNMOUNTING -&gt; unmoutComponent</li>
+</ul>
+<p>每个方法都提供了几种处理方法，其中带will前缀的方法在进入状态之前调用，带did在进入状态之后调用，3个阶段共包含5中处理方法，还有两种特殊状态的处理方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">+--------------+--------------------------------------------------------------------+--------------+</div><div class="line">|              |                                                                    |              |</div><div class="line">|              |                                                                    |              |</div><div class="line">|              |                                                                    |              |</div><div class="line">|  UNMOUNTED   |                              MOUNTED                               |  UNMOUNTED   |</div><div class="line">|              |                                                                    |              |</div><div class="line">|              |                                                                    |              |</div><div class="line">|              |                                                                    |              |</div><div class="line">|              |                                                                    |              |</div><div class="line">+--------------------------------------------------------------------------------------------------+</div><div class="line">|              |                                                                    |              |</div><div class="line">|              |                                                                    |              |</div><div class="line">|              |   +----------------+    +-----------------+    +---------------+   |              |</div><div class="line">|              |   |                |    |                 |    |               |   |              |</div><div class="line">|              |   |                |    |                 |    |               |   |              |</div><div class="line">|              |   |                |    |                 |    |               |   |              |</div><div class="line">|              |   |                |    |                 |    |               |   |              |</div><div class="line">|              |   |                |    |                 |    |               |   |              |</div><div class="line">|              |   |                |    |                 |    |               |   |              |</div><div class="line">|  +--------&gt;  |   |    MOUNTING    |    |   RECIEVE_PROPS |    |  UNMOUNTING   |   | +---------&gt;  |</div><div class="line">|              |   |                |    |                 |    |               |   |              |</div><div class="line">|              |   |                |    |                 |    |               |   |              |</div><div class="line">|              |   |                |    |                 |    |               |   |              |</div><div class="line">|              |   |                |    |                 |    |               |   |              |</div><div class="line">|              |   |                |    |                 |    |               |   |              |</div><div class="line">|              |   |                |    |                 |    |               |   |              |</div><div class="line">|              |   |                |    |                 |    |               |   |              |</div><div class="line">|              |   |                |    |                 |    |               |   |              |</div><div class="line">|              |   +----------------+    +-----------------+    +---------------+   |              |</div><div class="line">|              |                                                                    |              |</div><div class="line">|              |                                                                    |              |</div><div class="line">|              |                                                                    |              |</div><div class="line">+--------------+--------------------------------------------------------------------+--------------+</div></pre></td></tr></table></figure>
+<h2 id="使用createClass创建自定义组件"><a href="#使用createClass创建自定义组件" class="headerlink" title="使用createClass创建自定义组件"></a>使用createClass创建自定义组件</h2><p>createClass是创建自定义组件的入口方法，负责管理生命周期中的 <strong>getDefaultProps</strong> 方法，该方法在整个生命周期中只执行一次。这样所有实例初始化的props将会被共享。</p>
+<p>当使用es6编写组件时，<code>class MyComponent extends React.Component</code>其实就是调用内部的方法<code>createClass</code>。<br>相关代码路径：<a href="https://github.com/facebook/react/blob/master/src/isomorphic/classic/class/ReactClass.js#L768" target="_blank" rel="external">https://github.com/facebook/react/blob/master/src/isomorphic/classic/class/ReactClass.js#L768</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Module for creating composite components.</div><div class="line"> *</div><div class="line"> * @class ReactClass</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> ReactClass = &#123;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * Creates a composite component class given a class specification.</div><div class="line">   * See https://facebook.github.io/react/docs/react-api.html#createclass</div><div class="line">   *</div><div class="line">   * @param &#123;object&#125; spec Class specification (which must define `render`).</div><div class="line">   * @return &#123;function&#125; Component constructor function.</div><div class="line">   * @public</div><div class="line">   */</div><div class="line">  createClass: <span class="function"><span class="keyword">function</span>(<span class="params">spec</span>) </span>&#123;</div><div class="line">    <span class="comment">// To keep our warnings more understandable, we'll use a little hack here to</span></div><div class="line">    <span class="comment">// ensure that Constructor.name !== 'Constructor'. This makes sure we don't</span></div><div class="line">    <span class="comment">// unnecessarily identify a class without displayName as 'Constructor'.</span></div><div class="line">    <span class="keyword">var</span> Constructor = identity(<span class="function"><span class="keyword">function</span>(<span class="params">props, context, updater</span>) </span>&#123;</div><div class="line"></div><div class="line">      <span class="comment">// Wire up auto-binding</span></div><div class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.__reactAutoBindPairs.length) &#123;</div><div class="line">        bindAutoBindMethods(<span class="keyword">this</span>);</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">this</span>.props = props;</div><div class="line">      <span class="keyword">this</span>.context = context;</div><div class="line">      <span class="keyword">this</span>.refs = emptyObject;</div><div class="line">      <span class="keyword">this</span>.updater = updater || ReactNoopUpdateQueue;</div><div class="line"></div><div class="line">      <span class="keyword">this</span>.state = <span class="literal">null</span>;</div><div class="line"></div><div class="line">      <span class="comment">// ReactClasses doesn't have constructors. Instead, they use the</span></div><div class="line">      <span class="comment">// getInitialState and componentWillMount methods for initialization.</span></div><div class="line"></div><div class="line">      <span class="keyword">var</span> initialState = <span class="keyword">this</span>.getInitialState ? <span class="keyword">this</span>.getInitialState() : <span class="literal">null</span>;</div><div class="line"></div><div class="line">      invariant(</div><div class="line">        <span class="keyword">typeof</span> initialState === <span class="string">'object'</span> &amp;&amp; !<span class="built_in">Array</span>.isArray(initialState),</div><div class="line">        <span class="string">'%s.getInitialState(): must return an object or null'</span>,</div><div class="line">        Constructor.displayName || <span class="string">'ReactCompositeComponent'</span></div><div class="line">      );</div><div class="line"></div><div class="line">      <span class="keyword">this</span>.state = initialState;</div><div class="line">    &#125;);</div><div class="line">    <span class="comment">//原型继承父类</span></div><div class="line">    Constructor.prototype = <span class="keyword">new</span> ReactClassComponent();</div><div class="line">    Constructor.prototype.constructor = Constructor;</div><div class="line">    Constructor.prototype.__reactAutoBindPairs = [];</div><div class="line">    <span class="comment">//合并mixin</span></div><div class="line">    mixSpecIntoComponent(Constructor, spec);</div><div class="line">    </div><div class="line">    <span class="comment">// Initialize the defaultProps property after all mixins have been merged.</span></div><div class="line">    <span class="comment">// 初始化defaultProps。注意defaultProps没绑定到this上。</span></div><div class="line">    <span class="comment">// 在整个生命周期中.getDefaultProps只执行一次</span></div><div class="line">    <span class="keyword">if</span> (Constructor.getDefaultProps) &#123;</div><div class="line">      Constructor.defaultProps = Constructor.getDefaultProps();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// Reduce time spent doing lookups by setting these on the prototype.</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> methodName <span class="keyword">in</span> ReactClassInterface) &#123;</div><div class="line">      <span class="keyword">if</span> (!Constructor.prototype[methodName]) &#123;</div><div class="line">        Constructor.prototype[methodName] = <span class="literal">null</span>;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> Constructor;</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="阶段一：MOUNTING"><a href="#阶段一：MOUNTING" class="headerlink" title="阶段一：MOUNTING"></a>阶段一：MOUNTING</h2><p>mountComponent负责管理生命周期中 <code>getInitialState</code>，<code>componentWillMount</code>，<code>render</code>，<code>componentDidMount</code>。</p>
+<p>由于getDefaultProps是通过构造函数进行管理的，所以是整个生命周期最先开始的执行，所以mountComponent无法调用到getDefaultProps，这就解释了为何getDefaultProps只执行一次了。</p>
+<p>首先通过 mountComponent 装载组件，此时，将状态设置为 MOUNTING，利用 getInitialState 获取初始化 state，初始化更新队列。</p>
+<p>若存在 componentWillMount，则执行；如果此时在 componentWillMount 中调用 setState，是不会触发 reRender，而是进行 state 合并。</p>
+<p>其实，mountComponent 本质上是通过 递归渲染 内容的，由于递归的特性，父组件的 componentWillMount 一定在其子组件的 componentWillMount 之前调用，而父组件的 componentDidMount 肯定在其子组件的 componentDidMount 之后调用。</p>
+<p>当渲染完成之后，若存在 componentDidMount 则触发。这就解释了 componentWillMount - render - componentDidMount 三者之间的执行顺序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">               mountComponent   &lt;----------------------+</div><div class="line">                                                       |</div><div class="line">             +-----------------------------+           |</div><div class="line">             |      getInitialState        |           |</div><div class="line">             +---+---------------+---------+           |</div><div class="line">                 | Y             |                     |</div><div class="line">                 |               |                     |</div><div class="line">+----------------v---------+     |                     |</div><div class="line">|    componentWillMount    |     |                     |</div><div class="line">+----------------+---------+     |                     |</div><div class="line">                 |               | N                   |</div><div class="line">                 |               |                     |</div><div class="line">+----------------v---------+     |                     |</div><div class="line">|       merge state        |     |                     |</div><div class="line">+----------------+---------+     |                     |</div><div class="line">                 | Y             |                     |</div><div class="line">                 |               |                     |</div><div class="line">             +---v---------------v---------+           |</div><div class="line">             |  create Component instance  |           |</div><div class="line">             +----------------+------------+           |</div><div class="line">                              |                        |</div><div class="line">                              |                        |</div><div class="line">             +----------------v-----------+            |</div><div class="line">             |      recursive render      +------------+</div><div class="line">             +----------------+-----------+</div><div class="line">                              |</div><div class="line">             +----------------v------------+</div><div class="line">             |      componentDidMount      |</div><div class="line">             +-----------------------------+</div></pre></td></tr></table></figure>
+<h2 id="阶段二-RECIEVE-PROPS"><a href="#阶段二-RECIEVE-PROPS" class="headerlink" title="阶段二 RECIEVE_PROPS"></a>阶段二 RECIEVE_PROPS</h2><p>updateComponent负责管理生命周期中的componentWillReceiveProps，shouldComponentUpdate，componentWillUpdate，render，componentDidUpdate。</p>
+<p>首先通过updateComponent更新组件，如果前后元素不一致，说明需要进行组件更新。</p>
+<p>若存在componentWillReceiveProps，则执行，如果此时在componentWillReceiveProps中调用setState，是不会触发re-render的，而是会进行state的合并。且在componentWillReceiveProps，shouldComponentUpdate，componentWillUpdate中无法获取更新后的state，即this.state仍然是未更新的数据，因此只有在render和componentDidUpdate中才能获取到更新后的this.state。</p>
+<p>调用shouldComponentUpdate判断是否需要进行组件更新，如果存在componentWillUpdate则执行。</p>
+<p>updateComponent本质也是通过递归来渲染内容的，由于递归的特性，父组件的componentWillUpdate是在其子组件的componentWillUpdate之前调用的，而父组件的componentDidUpdate是在子组件的componentDidUpdate之后调用的。</p>
+<p>当渲染完成之后，若存在componentDidUpdate，则触发，这就解释了componentWillReceiveProps，shouldComponentUpdate，componentWillUpdate，render，componentDidUpdate之间的的执行顺序</p>
+<pre><code>&gt;注意，禁止在shouldComponentUpdate和componentWillUpdate中调用setState，这会造成循环调用，直至耗光浏览器内存后崩溃。
+</code></pre><p>updateComponent的执行顺序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">               updateComponent  &lt;---------------------+</div><div class="line">                                                      |</div><div class="line">                                                      |</div><div class="line">             +------------------------------+         |</div><div class="line">             |   componentWillReceiveProps  |         |</div><div class="line">             +------+-------------+---------+         |</div><div class="line">                Y   |             |                   |</div><div class="line">                    |             |                   |</div><div class="line">+-------------------v-------+     |                   |</div><div class="line">|  shouldComponentUpdate    |     |                   |</div><div class="line">+-------------------+-------+     |                   |</div><div class="line">               Y    |             | N                 |</div><div class="line">                    |             |                   |</div><div class="line">+-------------------v-------+     |                   |</div><div class="line">|  componentWillUpdate      |     |                   |</div><div class="line">+-------------------+-------+     |                   |</div><div class="line">                    |             |                   |</div><div class="line">                    |             |                   |</div><div class="line">              +-----v-------------v---------+         |</div><div class="line">              |  create component instance  |         |</div><div class="line">              +------------+----------------+         |</div><div class="line">                           |                          |</div><div class="line">                           |                          |</div><div class="line">              +------------v----------------+         |</div><div class="line">              |    recursive render         +---------+</div><div class="line">              +------------+----------------+</div><div class="line">                           |</div><div class="line">                           |</div><div class="line">              +------------v----------------+</div><div class="line">              |    componentDidUpdate       |</div><div class="line">              +-----------------------------+</div></pre></td></tr></table></figure>
+<h2 id="阶段三-UNMOUNTING"><a href="#阶段三-UNMOUNTING" class="headerlink" title="阶段三 UNMOUNTING"></a>阶段三 UNMOUNTING</h2><p>unmountComponent负责管理生命周期中的componentWillUnmount。</p>
+<p>如果存在componentWillUnmount，则执行并重置所有相关参数，更新队列以及状态，如果此时在componentWillUnmount调用setState，是不会触发re-render的，因为所有更新队列和更新状态都被重置为null，并清除了公共类，完成了组件的卸载。</p>
+<p>我们经常编写一些无状态，只从父组件接受props，并根据这些属性进行渲染的简单操作组件，这不仅让组件的开发变得简单，高效，也便于对状态进行统一管理，因此，在React开发中，一个重要的原则就是让组件尽可能的是无状态的。</p>
+<h2 id="无状态组件"><a href="#无状态组件" class="headerlink" title="无状态组件"></a>无状态组件</h2><p>无状态组件只是一个render方法，并没有组件化的实例化过程，也没有实例返回，比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">const Helloworld= props =&gt; &lt;div&gt;&#123;props.name&#125;&lt;/div&gt;</div><div class="line"></div><div class="line">RenderDOM.render(&lt;Helloworld name=&quot;hello world&quot; /&gt;,app);</div></pre></td></tr></table></figure>
+<p>无状态组件没有状态，没有生命周期，只是简单的接受props渲染生成DOM解构，是一个纯粹的为渲染而生的组件。由于无状态组件有简单、便捷、高效等有点，所以有可能的话，尽量用无状态组件。</p>
+<p>最后一张图再次归纳一下生命周期</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">+                                                                                         +                        +</div><div class="line">|  &lt;-------MOUNTING---------------------------------------------------------------------&gt; | &lt;----MOUNTED---------&gt; |</div><div class="line">+                                                                                         |                        +</div><div class="line">                                                                                          |</div><div class="line">      no  this.setState        no this.setState                           no this.setState|</div><div class="line">                                                                                          |     +-------------+</div><div class="line">       +-----------------+    +----------------+   +------------------+    +--------+     |     | componentDid|</div><div class="line">       |getDefaultProps  |    |getInitialState |   |componentWillMount|    |render  |     |     | Mount       |</div><div class="line">       +-----------------+    +----------------+   +------------------+    +--------+     |     +-------------+</div><div class="line">                                                                                          |</div><div class="line">+                          +                                                              |                        +</div><div class="line">| &lt;------RECEIVE_PROPS---&gt; | &lt;-------------------RECEIVE STAGE-------------------------&gt;  | &lt;---MOUNTED----------&gt; |</div><div class="line">+                          +                                                              |                        |</div><div class="line">                               no this.setState     no this.State         no this.setState|                        +</div><div class="line">       +-----------------+     +--------------+     +----------------+      +--------+    |     +-------------+</div><div class="line">       |componentWill    |     | shouldComponent    | componentWill  |      | render |    |     | componentDid|</div><div class="line">       | Recei^eProps    |     | Update       |     | Update         |      +--------+    |     | Update      |</div><div class="line">       +-----------------+     +--------------+     +----------------+                    |     +-------------+</div><div class="line">                                                                                          |                         +</div><div class="line">+                           +                                                             |                         |</div><div class="line">| &lt;-----RECEIVE_PROPS-----&gt; | &lt;-----------------------------------UNMOUNTED---------------------------------------&gt; |</div><div class="line">+                           +                                                             +                         +</div><div class="line">       +-----------------+</div><div class="line">       |componentWill    |</div><div class="line">       |Unmount          |</div><div class="line">       +-----------------+</div><div class="line">       no this.setState</div></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>React 通过三种状态：MOUNTING、RECEIVE_PROPS、UNMOUNTING，管理整个生命周期的执行顺序</li>
+<li>setState 会先进行 _pendingState 更新队列的合并操作，不会立刻 reRender，因此是异步操作，且通过判断状态（MOUNTING、RECEIVE_PROPS）来控制 reRender 的时机</li>
+<li>不建议在 getDefaultProps、getInitialState、shouldComponentUpdate、componentWillUpdate、render 和 componentWillUnmount 中调用 setState，特别注意：不能在 shouldComponentUpdate 和 componentWillUpdate 中调用 setState，会导致循环调用</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag">#React</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/08/array-unique-in-javascript/" rel="next" title="JavaScript数组去重">
+                <i class="fa fa-chevron-left"></i> JavaScript数组去重
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/04/macrotask-and-microtask/" rel="prev" title="macrotask和microtask">
+                macrotask和microtask <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/02/13/react-life-cycle/"
+     data-title="React的生命周期"
+     data-content=""
+     data-url="http://lordbaby.github.io/2017/02/13/react-life-cycle/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/02/13/react-life-cycle/"
+           data-title="React的生命周期" data-url="http://lordbaby.github.io/2017/02/13/react-life-cycle/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/dingdang.gif"
+               alt="HaiLiang" />
+          <p class="site-author-name" itemprop="name">HaiLiang</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lordbaby" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1988hailiang" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liulj88" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-paper-plane"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://lordbaby.github.io/react-gallery/" target="_blank" title="相册">
+                  
+                    <i class="fa fa-fw fa-photo"></i>
+                  
+                  相册
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#初探React生命周期"><span class="nav-number">1.</span> <span class="nav-text">初探React生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#详解React生命周期"><span class="nav-number">2.</span> <span class="nav-text">详解React生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用createClass创建自定义组件"><span class="nav-number">2.1.</span> <span class="nav-text">使用createClass创建自定义组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阶段一：MOUNTING"><span class="nav-number">2.2.</span> <span class="nav-text">阶段一：MOUNTING</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阶段二-RECIEVE-PROPS"><span class="nav-number">2.3.</span> <span class="nav-text">阶段二 RECIEVE_PROPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阶段三-UNMOUNTING"><span class="nav-number">2.4.</span> <span class="nav-text">阶段三 UNMOUNTING</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无状态组件"><span class="nav-number">2.5.</span> <span class="nav-text">无状态组件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HaiLiang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yinyf"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

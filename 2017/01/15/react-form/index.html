@@ -1,0 +1,734 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="http://fonts.useso.com//css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="React," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="表单在web中的作用很重要，本文总结于《深入React技术栈》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React中的表单">
+<meta property="og:url" content="http://lordbaby.github.io/2017/01/15/react-form/index.html">
+<meta property="og:site_name" content="海亮de部落格">
+<meta property="og:description" content="表单在web中的作用很重要，本文总结于《深入React技术栈》">
+<meta property="og:updated_time" content="2017-04-15T14:23:55.185Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React中的表单">
+<meta name="twitter:description" content="表单在web中的作用很重要，本文总结于《深入React技术栈》">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 4796736,
+      author: 'admin'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://lordbaby.github.io/2017/01/15/react-form/"/>
+
+  <title> React中的表单 | 海亮de部落格 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?879e38c58af922c23ad21390d3d53618";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">海亮de部落格</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                React中的表单
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-15T10:00:21+08:00" content="2017-01-15">
+              2017-01-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/15/react-form/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/15/react-form/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>表单在web中的作用很重要，本文总结于《深入React技术栈》</p>
+<a id="more"></a>
+<h2 id="文本框"><a href="#文本框" class="headerlink" title="文本框"></a>文本框</h2><p>单行文本框<code>input</code>，多行文本框<code>textarea</code></p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">import React, &#123;Component&#125; from &apos;react&apos;;</div><div class="line"></div><div class="line">class App extends Component&#123;</div><div class="line">    constructor(props)&#123;</div><div class="line">        super(props);</div><div class="line"></div><div class="line">        this.handleInputChange = this.handleInputChange.bind(this);</div><div class="line">        this.handleTextareaChange = this.handleTextareaChange.bind(this);</div><div class="line"></div><div class="line">        this.state=&#123;</div><div class="line">            inputValue:&apos;&apos;,</div><div class="line">            textAreaValue:&apos;&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    handleInputChange(e)&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            inputValue:e.target.value</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    handleTextareaChange(e)&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            textAreaValue:e.target.value</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        const &#123;inputValue,textAreaValue&#125;=this.state;</div><div class="line">        return (</div><div class="line">            &lt;div&gt;</div><div class="line">                &lt;p&gt;</div><div class="line">                    单行输入框：</div><div class="line">                   &lt;input type=&quot;text&quot; </div><div class="line">                          value=&#123;inputValue&#125;</div><div class="line">                          onChange=&#123;this.handleInputChange&#125; /&gt;</div><div class="line">                &lt;/p&gt;</div><div class="line">                &lt;p&gt;</div><div class="line">                    多行输入框：</div><div class="line">                    &lt;textarea cols=&quot;30&quot; rows=&quot;10&quot;</div><div class="line">                              value=&#123;textAreaValue&#125;</div><div class="line">                              onChange=&#123;this.handleTextareaChange&#125;&gt;&lt;/textarea&gt;</div><div class="line">                &lt;/p&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：textarea的值在html中是通过children来表示的（<code>&lt;textarea&gt;value&lt;/textarea&gt;</code>）,而在react中则和input标签一样通过value prop来表示其值。</p>
+</blockquote>
+<h2 id="radio和checkbox"><a href="#radio和checkbox" class="headerlink" title="radio和checkbox"></a>radio和checkbox</h2><p>这两种表单的value值一般不会改变，而是通过一个boolean类型的checked prop（属性）来表示是否为选中状态。</p>
+<h3 id="radio示例"><a href="#radio示例" class="headerlink" title="radio示例"></a>radio示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">import React, &#123;Component&#125; from &apos;react&apos;;</div><div class="line"></div><div class="line">class App extends Component&#123;</div><div class="line">    constructor(props)&#123;</div><div class="line">        super(props);</div><div class="line"></div><div class="line">        this.handleChange = this.handleChange.bind(this);</div><div class="line"></div><div class="line">        this.state=&#123;</div><div class="line">            radioValue:&apos;&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    handleChange(e)&#123;</div><div class="line">        this.setState(&#123;</div><div class="line">            radioValue:e.target.value</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        const &#123;radioValue&#125;=this.state;</div><div class="line">        return (</div><div class="line">            &lt;div&gt;</div><div class="line">                &lt;p&gt;性别：&lt;/p&gt;</div><div class="line">                &lt;label&gt;&lt;input name=&quot;gender&quot; type=&quot;radio&quot; value=&quot;male&quot; checked=&#123;radioValue===&apos;male&apos;&#125; onChange=&#123;this.handleChange&#125; /&gt;男&lt;/label&gt;</div><div class="line">                &lt;label&gt;&lt;input name=&quot;gender&quot; type=&quot;radio&quot; value=&quot;female&quot; checked=&#123;radioValue===&apos;female&apos;&#125; onChange=&#123;this.handleChange&#125; /&gt;女&lt;/label&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="checkbox示例"><a href="#checkbox示例" class="headerlink" title="checkbox示例"></a>checkbox示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line">import React, &#123;Component&#125; from &apos;react&apos;;</div><div class="line"></div><div class="line">class App extends Component&#123;</div><div class="line">    constructor(props)&#123;</div><div class="line">        super(props);</div><div class="line"></div><div class="line">        this.handleChange = this.handleChange.bind(this);</div><div class="line"></div><div class="line">        this.state=&#123;</div><div class="line">            skills:[]</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    handleChange(e)&#123;</div><div class="line">       const &#123; checked,value &#125; =e.target;</div><div class="line">       let &#123; skills &#125;=this.state;</div><div class="line">       if(checked&amp;&amp;skills.indexOf(value)===-1)&#123;</div><div class="line">        skills.push(value)</div><div class="line">       &#125;else&#123;</div><div class="line">        skills.filter(skill =&gt; skill!==value);</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       this.setState(&#123;skills&#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        const &#123; skills &#125;=this.state;</div><div class="line">        return (</div><div class="line">            &lt;div&gt;</div><div class="line">                &lt;p&gt;技能：&lt;/p&gt;</div><div class="line">                &lt;label&gt;&lt;input type=&quot;checkbox&quot; </div><div class="line">                              value=&quot;JavaScript&quot; </div><div class="line">                              checked=&#123;skills.indexOf(&apos;JavaScript&apos;)!==-1&#125;</div><div class="line">                              onChange=&#123;this.handleChange&#125; /&gt;</div><div class="line">                    JavaScript</div><div class="line">                &lt;/label&gt;</div><div class="line">                &lt;label&gt;&lt;input type=&quot;checkbox&quot; </div><div class="line">                              value=&quot;HTML&quot; </div><div class="line">                              checked=&#123;skills.indexOf(&apos;HTML&apos;)!==-1&#125;</div><div class="line">                              onChange=&#123;this.handleChange&#125; /&gt;</div><div class="line">                    HTML</div><div class="line">                &lt;/label&gt;</div><div class="line">                &lt;label&gt;&lt;input type=&quot;checkbox&quot; </div><div class="line">                              value=&quot;CSS&quot; </div><div class="line">                              checked=&#123;skills.indexOf(&apos;CSS&apos;)!==-1&#125;</div><div class="line">                              onChange=&#123;this.handleChange&#125; /&gt;</div><div class="line">                    CSS</div><div class="line">                &lt;/label&gt;</div><div class="line">                &lt;label&gt;&lt;input type=&quot;checkbox&quot; </div><div class="line">                              value=&quot;React&quot; </div><div class="line">                              checked=&#123;skills.indexOf(&apos;React&apos;)!==-1&#125;</div><div class="line">                              onChange=&#123;this.handleChange&#125; /&gt;</div><div class="line">                    React</div><div class="line">                &lt;/label&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>一个简单的复选框好像变得复杂了，确实，React对表单状态进行了控制，相应的多了一些处理onChange的代码。</p>
+<h2 id="Selecte组件"><a href="#Selecte组件" class="headerlink" title="Selecte组件"></a>Selecte组件</h2><p>这个存在多选或单选，通过设置标签属性multiple={true}或者multiple={false}来实现多选或单选</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">//单选</div><div class="line">import React, &#123;Component&#125; from &apos;react&apos;;</div><div class="line"></div><div class="line">class App extends Component&#123;</div><div class="line">    constructor(props)&#123;</div><div class="line">        super(props);</div><div class="line"></div><div class="line">        this.handleChange = this.handleChange.bind(this);</div><div class="line"></div><div class="line">        this.state=&#123;</div><div class="line">            area:&apos;&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    handleChange(e)&#123;</div><div class="line">       this.setState(&#123;area:e.target.value&#125;)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        const &#123; area &#125;=this.state;</div><div class="line">        return (</div><div class="line">            &lt;div&gt;</div><div class="line">               &lt;select value=&#123;area&#125; onChange=&#123;this.handleChange&#125; &gt;</div><div class="line">                    &lt;option value=&quot;bj&quot;&gt;北京&lt;/option&gt;</div><div class="line">                    &lt;option value=&quot;sh&quot;&gt;上海&lt;/option&gt;</div><div class="line">                    &lt;option value=&quot;gz&quot;&gt;广州&lt;/option&gt;</div><div class="line">               &lt;/select&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">//多选</div><div class="line">import React, &#123;Component&#125; from &apos;react&apos;;</div><div class="line"></div><div class="line">class App extends Component&#123;</div><div class="line">    constructor(props)&#123;</div><div class="line">        super(props);</div><div class="line"></div><div class="line">        this.handleChange = this.handleChange.bind(this);</div><div class="line"></div><div class="line">        this.state=&#123;</div><div class="line">            areas:[&apos;bj&apos;,&apos;sh&apos;]</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    handleChange(e)&#123;</div><div class="line">       const &#123;options&#125; =e.target;</div><div class="line">       //注意这里options返回来的是一个对象 并非数组</div><div class="line">       const areas=Object.keys(options)</div><div class="line">                    .filter( i =&gt; options[i].selected ===true)</div><div class="line">                    .map(i =&gt; options[i].value);</div><div class="line">        this.setState(&#123;areas&#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        const &#123; areas &#125;=this.state;</div><div class="line">        return (</div><div class="line">            &lt;div&gt;</div><div class="line">               &lt;select multiple=&#123;true&#125; value=&#123;areas&#125; onChange=&#123;this.handleChange&#125; &gt;</div><div class="line">                    &lt;option value=&quot;bj&quot;&gt;北京&lt;/option&gt;</div><div class="line">                    &lt;option value=&quot;sh&quot;&gt;上海&lt;/option&gt;</div><div class="line">                    &lt;option value=&quot;gz&quot;&gt;广州&lt;/option&gt;</div><div class="line">               &lt;/select&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="受控组件"><a href="#受控组件" class="headerlink" title="受控组件"></a>受控组件</h2><p>上面的例子中每个表单的状态发生变化时，都会被写入到组件的state中，这种组件在React中被称为受控组件，在受控组件中，组件渲染出的状态与它的value或checked prop相对应，React通过这种方式消除了组件额拒不状态，使得应用的整个状态更加可控，同样官方也推荐使用受控表单组件。</p>
+<p>总结受控表单更新state的流程：</p>
+<ol>
+<li>可以通过初始state中设置表单的默认值。</li>
+<li>每当表单的值发生变化时，调用onChange事件处理器</li>
+<li>事件处理器通过合成事件对象e拿到改变后的状态，并更新应用的state</li>
+<li>setState触发视图的重新渲染，完成表单组件值的更新。</li>
+</ol>
+<p>在React中数据时单向的，上面的例子中通过onChange事件处理器setState重新更新表单状态，并完成了数据额双向绑定。</p>
+<h2 id="非受控组件"><a href="#非受控组件" class="headerlink" title="非受控组件"></a>非受控组件</h2><p>并非React不支持非受控组件，如果一个表单组件没有value checked等props，可以使用defaultValue、defaultChecked来表示组件的默认状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">import React, &#123;Component&#125; from &apos;react&apos;;</div><div class="line"></div><div class="line">class App extends Component&#123;</div><div class="line">    constructor(props)&#123;</div><div class="line">        super(props);</div><div class="line"></div><div class="line">        this.handleSubmit = this.handleSubmit.bind(this);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    handleSubmit(e)&#123;</div><div class="line">       e.preventDefault();</div><div class="line">       const &#123;value&#125; =this.refs.name;//也可以用document.querySelector</div><div class="line">       console.log(value)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        const &#123; areas &#125;=this.state;</div><div class="line">        return (</div><div class="line">            &lt;form onSubmit=&#123;this.handleSubmit&#125;&gt;</div><div class="line">                &lt;input type=&quot;text&quot; ref=&quot;name&quot; defaultValue=&quot;admin&quot; /&gt;</div><div class="line">                &lt;button type=&quot;submit&quot;&gt;提交&lt;/button&gt;</div><div class="line">            &lt;/form&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>非受控组件是一种反模式，它的值不受组件自身的state或props控制。上面的defaultValue和defaultChecked只是默认值，要想改变只能通过操作DOM。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ol>
+<li>input(type=text)、textarea、select等表单组件通过value属性来展示应用的状态。</li>
+<li>radio、checkbox通过checked属性来展示状态</li>
+<li>selected属性可作用域select组件下面的option上，不过React并不推荐，推荐使用value的方式。</li>
+<li>以上几个组件状态发生改变时，通过触发onChange事件属性。</li>
+<li>表单域没有必要为所有组件的onChange事件属性指定多个处理器。可以集中处理，代码示例：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">import React, &#123;Component&#125; from &apos;react&apos;;</div><div class="line"></div><div class="line">class App extends Component&#123;</div><div class="line">    constructor(props)&#123;</div><div class="line">        super(props);</div><div class="line"></div><div class="line">        this.handleChange = this.handleChange.bind(this);</div><div class="line"></div><div class="line">        this.state=&#123;</div><div class="line">            name:&apos;&apos;,</div><div class="line">            age:20</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    handleChange(name,e)&#123;</div><div class="line">       const &#123; value &#125; = e.target;</div><div class="line">       this.setState(&#123;</div><div class="line">        [name]:value</div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        const &#123; name,age &#125;=this.state;</div><div class="line">        return (</div><div class="line">            &lt;div&gt;</div><div class="line">                &lt;input type=&quot;text&quot; value=&#123;name&#125; onChange=&#123;this.handleChange(&apos;name&apos;)&#125; /&gt;</div><div class="line">                &lt;input type=&quot;text&quot; value=&#123;age&#125; onChange=&#123;this.handleChange(&apos;age&apos;)&#125; /&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag">#React</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/30/react-event-system/" rel="next" title="React事件系统">
+                <i class="fa fa-chevron-left"></i> React事件系统
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/08/array-unique-in-javascript/" rel="prev" title="JavaScript数组去重">
+                JavaScript数组去重 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/01/15/react-form/"
+     data-title="React中的表单"
+     data-content=""
+     data-url="http://lordbaby.github.io/2017/01/15/react-form/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/15/react-form/"
+           data-title="React中的表单" data-url="http://lordbaby.github.io/2017/01/15/react-form/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/dingdang.gif"
+               alt="HaiLiang" />
+          <p class="site-author-name" itemprop="name">HaiLiang</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lordbaby" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1988hailiang" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liulj88" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-paper-plane"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://lordbaby.github.io/react-gallery/" target="_blank" title="相册">
+                  
+                    <i class="fa fa-fw fa-photo"></i>
+                  
+                  相册
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文本框"><span class="nav-number">1.</span> <span class="nav-text">文本框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#radio和checkbox"><span class="nav-number">2.</span> <span class="nav-text">radio和checkbox</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#radio示例"><span class="nav-number">2.1.</span> <span class="nav-text">radio示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checkbox示例"><span class="nav-number">2.2.</span> <span class="nav-text">checkbox示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selecte组件"><span class="nav-number">3.</span> <span class="nav-text">Selecte组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#受控组件"><span class="nav-number">4.</span> <span class="nav-text">受控组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非受控组件"><span class="nav-number">5.</span> <span class="nav-text">非受控组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HaiLiang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yinyf"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
